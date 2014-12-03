@@ -184,7 +184,7 @@ sub main {
 
      if ($args->{'-l'}) {
           push(@file_args, '--native-libraries');
-          push(@file_args, (@{$args->{'-l'}}));
+          push(@file_args, "'@{$args->{'-l'}}'");
      }
      if (scalar @objFiles == 0) {
           push(@file_args, '-cOBJ1=".Bag"');

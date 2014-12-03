@@ -99,7 +99,7 @@ module C-TRANSLATION-INIT
                ))) ...</k>
           <external-types>... B |-> _ ...</external-types>
           <external-defs> Defs:Map </external-defs>
-          requires notBool (B in keys(Defs))
+          requires notBool (B in keys(Defs)) andBool isFunctionType(T)
 
      rule <k> addBuiltin(B:CId, _) => .K ...</k>
           <external-types> Types:Map </external-types>
