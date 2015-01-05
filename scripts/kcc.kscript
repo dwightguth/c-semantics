@@ -1,0 +1,126 @@
+#!/usr/bin/env kscript
+definition DIRNAME + "/c11-translation-kompiled" {
+
+  @flag("-E", open(flag("-o", "-")))
+  file[] preprocess(file STDIN, string[] ARGV) {
+    file[] PPs = [];
+    for (string filename : ARGV) {
+      PPs = [PPs, exec(["gcc-4.9", "-Wall", "-Wextra", "-Werror", 
+          "-Wmissing-prototypes", "-pedantic", "-x", "c", "-std=c11",
+          "-CC", "-nostdlib", "-nodefaultlibs", "-U", "__GNUC__",
+          "-include", DIRNAME + "/includes/kcc_settings.h", "-E",
+          "-iquote", ".", "-iquote", PWD, "-I", DIRNAME + "/includes",
+          ARGV], stdin)];
+    }
+    return PPs;
+  }
+
+  file parse(file STDIN, string filename) {
+    file PP = preprocess(STDIN, [file]);
+    file XML = exec([DIRNAME + "/cparser", cp(PP, tempFile), 
+                    "--trueName", filename]);
+    return exec([DIRNAME + "/xml-to-k"], XML);
+  }
+
+  @flag("-c", open(flag("-o", baseFilename(ARGV[1]) + ".o")))
+  file[] compile(file STDIN, string[] ARGV) {
+    file[] Cs = [];
+    for (string filename : ARGV) {
+      file KAST = parse(STDIN, filename);
+      Cs = [Cs, exec([krun, "--output", "binary", 
+          "-cOPTIONS=(SetItem(NOLINK) .Set)", "-cOBJ1=.Bag",
+          "-cOBJ2=.Bag", "--parser", "cat", "-w", "none",
+          "--pattern-matching", ARGV[1], "--exit-code",
+          "<result-value> Val:Int </result-value>"])];
+    }
+    return Cs;
+  }
+  
+  @flag("-shared", open(flag("-o", "a.out")))
+  file linkShared(file STDIN, string[] ARGV) {
+    file[] compiled = classify(STDIN, ARGV);
+    return merge(1, compiled)[0];
+  }
+
+  @flag(null, open(flag("-o", "a.out")))
+  string linkExecutable(file STDIN, string[] ARGV) {
+    string[] LIBS  = libs();
+    file[] compiled;
+    if (flag("-s")) {
+      compiled = classify(STDIN, ARGV);
+    } else {
+      compiled = classify(STDIN, [ARGV, DIRNAME + "/lib/libc.so"]);
+    }
+    file[] objects= merge(2, compiled);
+    string[] fileArgs;
+    if (length objects == 1) {
+      fileArgs = ["-cOBJ1=.Bag", "-pOBJ2=kast --parser binary",
+                  "-cOBJ2=" + echo(objects[1], tempFile)];
+    } else {
+      fileArgs = ["-pOBJ1=kast --parser binary",
+                  "-pOBJ2=kast --parser binary",
+                  "-cOBJ1=" + echo(objects[1], tempFile),
+                  "-cOBJ2=" + echo(objects[2], tempFile)];
+    }
+    if (flag("-fnative-libc")) {
+      fileArgs = [fileArgs, "--native-libraries", LIBS];
+    }
+    file PGM = exec([krun, "--output", "binary", "-w", "none",
+        "--pattern-matching", "-cOPTIONS=(.Set)", "-cPGM=.K",
+        fileArgs]);
+    return SCRIPT_HEADER + this + " -exec -pgm " + cat(PGM) 
+        + " -- \"$@\"";
+  }
+
+  string[]  libs() {
+    if (flag("-s")) {
+      return flag("-l");
+    } else {
+      return ["c", flag("-l")];
+    }
+  }
+
+  file[] merge(int n, file[] compiled) {
+    return reduce(n, compiled, exec([krun, "--output", "binary",
+        "-cOPTIONS=(SetItem(NOLINK) .Set)", "-cPGM=.K",
+        "-pOBJ1=kast --parser binary", "-cOBJ1=" + cp(ARG[1], tempFile),
+        "-pOBJ2=kast --parser binary", "-cOBJ2=" + cp(ARG[2], tempFile),
+        "-w", "none", "--pattern-matching", "--exit-code",
+        "<result-value> Val:Int </result-value>"]));
+  }
+
+  file[] classify(file STDIN, string[] files) {
+    file[] compiled = [];
+    for (string filename : files) {
+      if (extension(filename) == "o" || extension(filename) == "so"
+          || extension(filename) == "a") {
+        compiled = [compiled, open(filename)];
+      } else {
+        compiled = [compiled, compile(STDIN, [filename])];
+      }
+    }
+    return compiled;
+  }
+}
+
+definition DIRNAME + "/c11-kompiled" {
+  @flag("-exec")
+  int exec(file STDIN, string[] ARGV) {
+    string argvOpt = "";
+    for (string arg : ARGV) {
+      argvOpt = argvOpt + " ListItem(" + enquote(arg) + ")";
+    }
+    return execInt([krun, "--output", "none", "--pattern-matching",
+        "-cARGC=" + (length ARGV + 2), "-cARGV=ListItem(" 
+        + enquote(ARG0) + ") " + argvOpt,
+        "--parser kast --parser binary",
+        echo(flag("-pgm"), tempFile)], STDIN);
+  }
+
+  @flag("-debug", open(flag("-o", ARG0 + ".debug")))
+  string debug(string arg) {
+     file f = open(arg);
+     string[] words = read(f);
+     return words[length words - 3];
+  }
+}
