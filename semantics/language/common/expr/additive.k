@@ -159,16 +159,16 @@ module C-COMMON-EXPR-ADDITIVE
      // ptr1, ptr2, size of ptr type
      syntax KItem ::= computePointerDifference(Int, Int)
      rule computePointerDifference(Diff:Int, Size:Int)
-          => tv(Diff /Int Size, cfg:ptrdiffut)
+          => tv(Diff /Int Size, t(.Set, cfg:ptrdiffut))
           requires (Diff %Int Size ==Int 0)
-               andBool (Diff /Int Size) <=Int max(cfg:ptrdiffut)
-               andBool (Diff /Int Size) >=Int min(cfg:ptrdiffut)
+               andBool (Diff /Int Size) <=Int max(t(.Set, cfg:ptrdiffut))
+               andBool (Diff /Int Size) >=Int min(t(.Set, cfg:ptrdiffut))
           [structural]
      rule (.K => UNDEF("CEA2", "Pointer difference outside the range that can be represented.",
                "6.5.6"))
           ~> computePointerDifference(Diff:Int, Size:Int)
-          requires (Diff /Int Size) >Int max(cfg:ptrdiffut)
-               orBool (Diff /Int Size) <Int min(cfg:ptrdiffut)
+          requires (Diff /Int Size) >Int max(t(.Set, cfg:ptrdiffut))
+               orBool (Diff /Int Size) <Int min(t(.Set, cfg:ptrdiffut))
           [structural]
 
      rule tv(I1:Int, T:Type) + tv(I2:Int, T':Type)

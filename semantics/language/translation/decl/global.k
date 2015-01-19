@@ -801,12 +801,12 @@ module C-DECL-GLOBAL
      rule <k> (completeTagInTag(S:CId, Info:FieldInfo, S2:CId) => .K ) ...</k>
           <gstructs>...
                S2 |-> fieldInfo(
-                    (Decls:List => completeTagsInList(S |-> Info, Decls)),
+                    (Decls:List => completeTagsInList(S |-> Info, Decls)), _,
                     (Fields:Map => completeTagsInMap(S |-> Info, Fields)), _)
           ...</gstructs>
           <structs>...
                S2 |-> fieldInfo(
-                    (Decls:List => completeTagsInList(S |-> Info, Decls)),
+                    (Decls:List => completeTagsInList(S |-> Info, Decls)), _,
                     (Fields:Map => completeTagsInMap(S |-> Info, Fields)), _)
           ...</structs>
           requires S =/=K S2

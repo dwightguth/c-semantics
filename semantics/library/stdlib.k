@@ -105,7 +105,7 @@ module LIBC-STDLIB
                hrItem(tv(N:Int, _)) hs::
                hrItem(tv(Size:Int, _)))
           => prepareBuiltin(Identifier("malloc"),
-               hrItem(tv(N:Int *Int Size:Int, cfg:sizeut)))
+               hrItem(tv(N:Int *Int Size:Int, t(.Set, cfg:sizeut))))
           ~> calloc-aux
           [structural]
      rule (.K => zeroObject(base(Loc)) )

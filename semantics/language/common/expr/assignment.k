@@ -93,7 +93,7 @@ module C-COMMON-EXPR-ASSIGNMENT
      a subexpression that is not evaluated.
      }*/
 
-     rule lval(_, T':Type => stripConstants(T')) := tv(V:CValue, T:Type => stripConstants(T))
+     rule lval(_, T':Type => stripConstants(T')) := tv(_:CValue, T:Type => stripConstants(T))
           requires fromConstantExpr(T') orBool fromConstantExpr(T)
 
      rule (.K => ERROR("CEA1", "incompatible types in assignment or function call arguments."))

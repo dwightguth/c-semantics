@@ -186,8 +186,8 @@ module C-DECL-INITIALIZER
           [structural]
      rule <curr-subobject>
                (.List => ListItem(te(K . F, T)))
-               ListItem(te(K:K, t(_, structType(_, _,
-                    fieldInfo(ListItem(typedDeclaration(T:Type, F:CId)) _, _, _)
+               ListItem(te(K:K, t(_, structType(_,
+                    fieldInfo(ListItem(typedDeclaration(T:Type, F:CId)) _, _, _, _)
                ))))
           ...</curr-subobject>
           [structural]
@@ -195,8 +195,8 @@ module C-DECL-INITIALIZER
      // fixme these are terrible!
      rule <curr-subobject>
                (.List => ListItem(te(K . F, T)))
-               ListItem(te(K:K, t(_, unionType(_, _,
-                    fieldInfo(ListItem(typedDeclaration(T:Type, F:CId)) _, _, _)
+               ListItem(te(K:K, t(_, unionType(_,
+                    fieldInfo(ListItem(typedDeclaration(T:Type, F:CId)) _, _, _, _)
                ))))
           ...</curr-subobject>
           [structural]
@@ -263,8 +263,8 @@ module C-DECL-INITIALIZER
      rule <k> (.K => searchInFieldInfoList(T, F, L)) ...</k>
           <curr-subobject>
                (ListItem(next) (.List => ListItem(block)) ListItem(te(K:K . F:CId, T:Type)))
-               ListItem(te(K:K, t(_, structType(_, _,
-                    fieldInfo(L:List, _, _)
+               ListItem(te(K:K, t(_, structType(_,
+                    fieldInfo(L:List, _, _, _)
                ))))
           ...</curr-subobject>
           [structural]
@@ -275,20 +275,20 @@ module C-DECL-INITIALIZER
           <curr-subobject>
                (ListItem(next) ListItem(block) ListItem(te(K:K . _, _))
                     => ListItem(te(K . F', T')))
-               ListItem(te(K:K, t(_, structType(_, _, _))))
+               ListItem(te(K:K, t(_, structType(_, _))))
           ...</curr-subobject>
           [structural]
 
      rule <k> resultInFieldInfoList(matchResultOfSearchType) => .K ...</k>
           <curr-subobject>
                ListItem(next) (ListItem(block) ListItem(te(K:K . _, _)) => .List)
-               ListItem(te(K:K, t(_, structType(_, _, _))))
+               ListItem(te(K:K, t(_, structType(_, _))))
           ...</curr-subobject>
           [structural]
 
      rule <curr-subobject>
                ListItem(next) (ListItem(te(K:K . _, _)) => .List)
-               ListItem(te(K:K, t(_, unionType(_, _, _))))
+               ListItem(te(K:K, t(_, unionType(_, _))))
           ...</curr-subobject>
           [structural]
 
@@ -352,7 +352,7 @@ module C-DECL-INITIALIZER
                     ListItem('te(K:K,, 't(_,, Lbl:KLabel(S:CId,, _))))
           ...</curr-subobject>
           <structs>...
-               S |-> fieldInfo(_, (_ F:CId |-> T:Type), _)
+               S |-> fieldInfo(_, _, (_ F:CId |-> T:Type), _)
           ...</structs>
           requires Lbl ==KLabel 'structType orBool Lbl ==KLabel 'unionType
           [structural]
@@ -415,11 +415,11 @@ module C-DECL-INITIALIZER
           [structural]
 
      syntax KItem ::= initFromStructRHS(K, Type)
-     rule <k> initFromAggregateRHS(K:K, t(S:Set, structType(X:CId, NBits:Int, Info:FieldInfo)))
-               => initFromStructRHS(K, t(S, structType(X, NBits, Info)))
+     rule <k> initFromAggregateRHS(K:K, t(S:Set, structType(X:CId, Info:FieldInfo)))
+               => initFromStructRHS(K, t(S, structType(X, Info)))
           ...</k>
           <curr-subobject>
-               .List => ListItem(findStruct(t(S, structType(X, NBits, Info))))
+               .List => ListItem(findStruct(t(S, structType(X, Info))))
           ...</curr-subobject>
           [structural]
 
@@ -432,10 +432,10 @@ module C-DECL-INITIALIZER
           [structural]
 
      // fixme unsafe, might have started to initialize other things
-     rule <k> initFromStructRHS(K':K, t(_, structType(S:CId, _, _))) => .K ...</k>
+     rule <k> initFromStructRHS(K':K, t(_, structType(S:CId, _))) => .K ...</k>
           <curr-subobject>
-               ListItem(findStruct(t(_, structType(S:CId, _, _))))
-                    ListItem(te(K:K, t(_, structType(S:CId, _, _)))) => ListItem(next)
+               ListItem(findStruct(t(_, structType(S:CId, _))))
+                    ListItem(te(K:K, t(_, structType(S:CId, _)))) => ListItem(next)
           ...</curr-subobject>
           <incomplete-length>
                N:Int => maxInt(N, getTopArrayUse(K))
@@ -521,7 +521,7 @@ module C-DECL-INITIALIZER
           => SingleInit(stringLiteral(butFirstChar(S)))
 
      rule <k> fillInit-aux(SingleInit(wstringLiteral(ListItem(N:Int) S:List)))
-               => fillInit(SingleInit(tv(N, cfg:wcharut)))
+               => fillInit(SingleInit(tv(N, t(.Set, cfg:wcharut))))
                     ~> fillInit-aux(SingleInit(wstringLiteral(S)))
           ...</k>
           <curr-subobject>

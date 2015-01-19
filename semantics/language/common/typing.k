@@ -22,7 +22,7 @@ module C-TYPING-SYNTAX
 
      // TODO(chathhorn): move?
      // Offsets and field names for structs and unions.
-     syntax FieldInfo ::= fieldInfo(List, Map, Map)
+     syntax FieldInfo ::= fieldInfo(List, Int, Map, Map)
 
      // Represents a type before canonicalization.  as in "int *x", first arg
      // is "Int", second arg is "PointerType(JustBase)"
@@ -78,10 +78,10 @@ module C-TYPING-SYNTAX
      syntax SimpleType ::= flexibleArrayType(Type)
      syntax SimpleType ::= variableLengthArrayType(Type, K)
 
-     syntax SimpleType ::= structType(CId, Int, FieldInfo)
+     syntax SimpleType ::= structType(CId, FieldInfo)
      syntax SimpleType ::= incompleteStructType(CId)
 
-     syntax SimpleType ::= unionType(CId, Int, FieldInfo)
+     syntax SimpleType ::= unionType(CId, FieldInfo)
      syntax SimpleType ::= incompleteUnionType(CId)
 
      // Basic types
