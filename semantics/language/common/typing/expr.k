@@ -80,9 +80,9 @@ module C-TYPING-EXPR
      its type (an unsigned integer type) is \cinline{size_t}, defined in
      \header{<stddef.h>} (and other headers).
      }*/
-     rule <type> SizeofExpression(_) => cfg:sizeut ...</type>
+     rule <type> SizeofExpression(_) => t(SetItem(IntegerConstant), cfg:sizeut) ...</type>
           [structural]
-     rule <type> SizeofType(_, _) => cfg:sizeut ...</type>
+     rule <type> SizeofType(_, _) => t(SetItem(IntegerConstant), cfg:sizeut) ...</type>
           [structural]
 
      rule <type>
@@ -105,7 +105,7 @@ module C-TYPING-EXPR
           [structural]
      rule <type>
                t(_, pointerType(_:Type)) - t(_, pointerType(_:Type))
-               => cfg:ptrdiffut
+               => t(.Set, cfg:ptrdiffut)
           ...</type>
           [structural]
      rule <type>

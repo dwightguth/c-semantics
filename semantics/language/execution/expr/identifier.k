@@ -5,18 +5,19 @@ module C-EXPR-IDENTIFIER
      imports COMPAT-SYNTAX
      imports C-COMMON-EXPR-EVAL-SYNTAX
      imports C-MEMORY-READING-SYNTAX
+     imports C-TYPING-COMPATIBILITY-SYNTAX
 
      /*@ \fromStandard{\source[n1570]{\para{6.5.1}{2}}}{
      An identifier is a primary expression, provided it has been declared as
      designating an object (in which case it is an lvalue) or a function (in
      which case it is a function designator).
      }*/
-     rule <k> X:CId => lv(lnew(Base), T) ...</k>
+     rule <k> X:CId => lv(addProv(align(getAlignas(T)), lnew(Base)), T) ...</k>
           <env>... X |-> Base:SymBase ...</env>
           <types>... X |-> T:Type ...</types>
           requires notBool isRestrictType(T)
           [structural]
-     rule <k> X:CId => lv(restrictedNew(Base, getRestrictBlock(T)), T) ...</k>
+     rule <k> X:CId => lv(addProv(align(getAlignas(T)), restrictedNew(Base, getRestrictBlock(T))), T) ...</k>
           <env>... X |-> Base:SymBase ...</env>
           <types>... X |-> T:Type ...</types>
           requires isRestrictType(T)
