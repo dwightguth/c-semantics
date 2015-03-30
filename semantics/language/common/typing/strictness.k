@@ -136,14 +136,14 @@ module C-TYPING-STRICTNESS
                Lbl:KLabel(X:K,, K:K,, Y:K) => K ~> Lbl(X,, THOLE,, Y)
           ...</type>
           requires (l(Lbl) in typeStrictTernaryOpsSecond)
-               andBool (getKLabel(K) =/=KLabel 't)
+               andBool (getKLabel(K) =/=K #klabel(`t`))
                andBool (K =/=K THOLE)
           [structural]
      rule <type>
                Lbl:KLabel(X:K,, Y:K,, K:K) => K ~> Lbl(X,, Y,, THOLE)
           ...</type>
           requires (l(Lbl) in typeStrictTernaryOpsThird)
-               andBool (getKLabel(K) =/=KLabel 't)
+               andBool (getKLabel(K) =/=K #klabel(`t`))
                andBool (K =/=K THOLE)
           [structural]
      rule <type>

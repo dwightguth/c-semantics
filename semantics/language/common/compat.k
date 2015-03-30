@@ -1,7 +1,12 @@
 module COMPAT-SYNTAX
      imports C-SYNTAX // Would like to get rid of this.
-     imports KCELLS
      imports MAP
+     imports KCELLS
+     imports INT
+     imports FLOAT
+     imports K-EQUAL
+
+     syntax KBott ::= "(" K ")" [bracket]
 
      //TODO(liyi): must not need the second one
      syntax KItem ::= l(KLabel) [avoid]
@@ -17,7 +22,7 @@ module COMPAT-SYNTAX
 
      syntax String ::= toUpperCase(String) [function]
 
-     syntax Bool ::= all(List, KLabel) [function]
+     syntax Bool ::= all(List, K) [function]
 
      //TODO(liyi): this might be able to remove
      syntax Bool ::= isAllKResultInHeatList(HeatList) [function]
