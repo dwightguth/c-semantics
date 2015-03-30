@@ -1,5 +1,9 @@
 module COMPAT-SYNTAX
      imports C-SYNTAX // Would like to get rid of this.
+     imports MAP
+     imports KCELLS
+
+     syntax KBott ::= "(" K ")" [bracket]
 
      //TODO(liyi): must not need the second one
      syntax KItem ::= l(KLabel) [avoid]
@@ -16,7 +20,7 @@ module COMPAT-SYNTAX
 
      syntax String ::= toUpperCase(String) [function]
 
-     syntax Bool ::= all(List, KLabel) [function]
+     syntax Bool ::= all(List, K) [function]
 
      //TODO(liyi): this might be able to remove
      syntax Bool ::= isAllKResultInHeatList(HeatList) [function]
@@ -198,7 +202,7 @@ module COMPAT
      rule klistToList((K:K,, L:KList)) => ListItem(K) klistToList(L)
      rule klistToList(.KList) => .List
 
-     rule 'klist(L:KList) => 'list(klistToList(L))
+     rule `klist`(L:KList) => `list`(klistToList(L))
 
      syntax Set ::= #filterSet(K, Set, KLabel) [function]
 

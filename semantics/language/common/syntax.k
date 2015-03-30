@@ -1,4 +1,8 @@
 module C-SYNTAX
+     imports BASIC-K
+     imports STRING
+     imports INT
+
      // these are semantic
      syntax KItem ::= reval(K)
 

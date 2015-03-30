@@ -1,4 +1,7 @@
 module C-LITERAL-SYNTAX
+     imports STRING
+     imports LIST
+
      syntax Constant ::= StringLiteral
      syntax StringLiteral ::= stringLiteral(String)
      syntax StringLiteral ::= wstringLiteral(List)

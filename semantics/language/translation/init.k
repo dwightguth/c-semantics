@@ -1,4 +1,5 @@
 module C-TRANSLATION-INIT-SYNTAX
+     imports KCELLS
      syntax KItem ::= load(Bag, Bag, Bag, Bag)
      syntax KItem ::= "link" | "cleanup"
 

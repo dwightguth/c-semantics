@@ -9,6 +9,8 @@ module C-EXPR-ADDITIVE
 
      imports C-SETTINGS-SYNTAX
 
+     imports K-EQUAL
+
      rule tv(V':CValue, t(Mods:Set, pointerType(T':Type))) + tv(V:CValue, _:IntegerType)
           => tv(symVal, t(Mods, pointerType(T')))
           requires ((V ==K symVal) orBool (V' ==K symVal))

@@ -88,7 +88,7 @@ module C-IO-DIRECT
                Base |-> object(_, _,
                     M:Map => M[Offset <- piece(0, cfg:bitsPerByte)])
           ...</mem>
-          requires notBool (Offset in (keys(M)))
+          requires notBool (Offset in keys(M))
           [structural]
 
 endmodule

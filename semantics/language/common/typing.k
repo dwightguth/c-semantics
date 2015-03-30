@@ -87,10 +87,10 @@ module C-TYPING-SYNTAX
      syntax StructId ::= global(CId, String)
                        | local(CId, String, Int)
 
-     syntax KItem ::= getFieldInfo(StructId) [function]
-     syntax KItem ::= getFieldInfo(Type) [function]
+     syntax FieldInfo ::= getFieldInfo(StructId) [function]
+     syntax FieldInfo ::= getFieldInfo(Type) [function]
      syntax CId ::= getTag(StructId) [function]
-     syntax KItem ::= "#incomplete"
+     syntax FieldInfo ::= "#incomplete"
 
      // These aren't real types, but are values that can appear in type
      // contexts.

@@ -1,4 +1,10 @@
 module C-DYNAMIC-SYNTAX
+     imports INT
+     imports LIST
+     imports BASIC-K
+     imports FLOAT
+     imports SET
+
      syntax SimpleType // defined in C-TYPING-SYNTAX
      syntax Bits // defined in C-BITS-SYNTAX
      syntax SymLoc // defined in C-SYMLOC-SYNTAX
