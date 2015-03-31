@@ -90,7 +90,7 @@ module C-EXPR-ASSIGNMENT
 
      syntax Bool ::= fromArrayStatic(Type) [function]
      rule fromArrayStatic(t(SetItem(K:K) S:Set, T:SimpleType))
-          => (getKLabel(K) ==KLabel 'arrayStatic) orBool fromArrayStatic(t(S, T))
+          => (getKLabel(K) ==K #klabel(`'arrayStatic`)) orBool fromArrayStatic(t(S, T))
      rule fromArrayStatic(_) => false [owise]
 
      syntax KItem ::= checkArrayStaticAssign(Type, CValue)
@@ -117,16 +117,16 @@ module C-EXPR-ASSIGNMENT
                arrayStatic(N:Int), fromArray(Offset:Int, Sz:Int))
           requires (Sz -Int Offset) <Int (N *Int byteSizeofType(T):>Int)
 
-     syntax KItem ::= getFirstMatch(Set, KLabel) [function]
-                    | "getFirstMatch'" "(" K "," Set "," KLabel ")" [function]
+     syntax KItem ::= getFirstMatch(Set, K) [function]
+                    | "getFirstMatch'" "(" K "," Set "," K ")" [function]
 
-     rule getFirstMatch(S:Set, L:KLabel) => getFirstMatch'(.K, S, L)
+     rule getFirstMatch(S:Set, L:K) => getFirstMatch'(.K, S, L)
 
      rule getFirstMatch'((.K => K), (SetItem(K:K) => .Set) _, _)
-     rule getFirstMatch'((K:K => .K), _, L:KLabel)
-          requires getKLabel(K) =/=KLabel L
-     rule getFirstMatch'(K:K, _, L:KLabel) => K
-          requires getKLabel(K) ==KLabel L
+     rule getFirstMatch'((K:K => .K), _, #klabel(L:KLabel))
+          requires getKLabel(K) =/=K #klabel(L)
+     rule getFirstMatch'(K:K, _, L:K) => K
+          requires getKLabel(K) ==K L
      rule getFirstMatch'(.K, .Set, _) => .K
 
 endmodule

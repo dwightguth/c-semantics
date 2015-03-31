@@ -23,7 +23,7 @@ module C-DYNAMIC-SYNTAX
      syntax KItem ::= toRVal(K)
 
      syntax Type ::= type(K) [function]
-     syntax KItem ::= value(RValue) [function]
+     syntax CValue ::= value(RValue) [function]
 
      syntax KItem ::= "discard"
 
@@ -131,7 +131,7 @@ module C-DYNAMIC
 
      rule <k> loadObj(<global> G:Bag </global>) => .K ...</k>
           <global> (_:Bag => G) </global>
-          requires (G =/=Bag .Bag)
+          requires (G =/=K .Bag)
           [structural]
 
      rule loadObj(.Bag) => .K

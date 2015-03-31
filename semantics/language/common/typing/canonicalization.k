@@ -31,7 +31,7 @@ module C-TYPING-CANONICALIZATION
      rule deleteUnuseType(ListItem(K:K) L:List)
           => ListItem(K) deleteUnuseType(L)
           requires K =/=K SpecTypedef
-               andBool getKLabel(K) =/=KLabel 'Attribute
+               andBool getKLabel(K) =/=K #klabel(`'Attribute`)
 
      rule canonicalizeType(M:List)
           => canonicalizeType-aux(deleteUnuseType(M), .K, .List, .List, .List)
@@ -49,8 +49,8 @@ module C-TYPING-CANONICALIZATION
 
      rule (T:Type => .K)
           ~> canonicalizeType-aux(
-               _ (ListItem(TAtomic(_, _)) => .List), _, _, _,
-               _ (.List => ListItem(atomic(T))))
+               _:List (ListItem(TAtomic(_, _)) => .List), _, _, _,
+               _:List (.List => ListItem(atomic(T))))
           [structural]
 
      //might need to change this later
@@ -81,14 +81,14 @@ module C-TYPING-CANONICALIZATION
                orBool (T ==K Unsigned)
                orBool (T ==K Complex)
                orBool (T ==K Imaginary)
-               orBool (getKLabel(T) ==KLabel 'StructDef)
-               orBool (getKLabel(T) ==KLabel 'UnionDef)
-               orBool (getKLabel(T) ==KLabel 'EnumDef)
-               orBool (getKLabel(T) ==KLabel 'StructRef)
-               orBool (getKLabel(T) ==KLabel 'UnionRef)
-               orBool (getKLabel(T) ==KLabel 'EnumRef)
-               orBool (getKLabel(T) ==KLabel 'Named)
-               orBool (getKLabel(T) ==KLabel 'Attribute)
+               orBool (getKLabel(T) ==K #klabel(`'StructDef`))
+               orBool (getKLabel(T) ==K #klabel(`'UnionDef`))
+               orBool (getKLabel(T) ==K #klabel(`'EnumDef`))
+               orBool (getKLabel(T) ==K #klabel(`'StructRef`))
+               orBool (getKLabel(T) ==K #klabel(`'UnionRef`))
+               orBool (getKLabel(T) ==K #klabel(`'EnumRef`))
+               orBool (getKLabel(T) ==K #klabel(`'Named`))
+               orBool (getKLabel(T) ==K #klabel(`'Attribute`))
           [structural]
 
      rule canonicalizeType-aux(_:List (ListItem(T:K) => .List), _:K, _:List, _:List,
@@ -120,8 +120,8 @@ module C-TYPING-CANONICALIZATION
                orBool (Q ==K Static)
                orBool (Q ==K ThreadLocal)
                orBool (Q ==K Volatile)
-               orBool (getKLabel(Q) ==KLabel 'alignas)
-               orBool (getKLabel(Q) ==KLabel 'atomic)
+               orBool (getKLabel(Q) ==K #klabel(`'alignas`))
+               orBool (getKLabel(Q) ==K #klabel(`'atomic`))
           [structural]
 // TODO(chathhorn): merging; doesn't make sense to me.
 //     //change this because of anywhere rule
@@ -148,8 +148,8 @@ module C-TYPING-CANONICALIZATION
 //      => (K |-> canonicalizeArrayType(T)) canonicalizeArrayTypeInMap(M)
 //
 //      rule canonicalizeArrayType(T:Type) => T
-//      requires getKLabel(T) =/=KLabel 't
-//          andBool getKLabel(T) =/=KLabel 'typedDeclaration
+//      requires getKLabel(T) =/=K #klabel(`'t`)
+//          andBool getKLabel(T) =/=K #klabel(`'typedDeclaration`)
 //      rule canonicalizeArrayType(typedDeclaration(T:Type, C:CId))
 //      => typedDeclaration(canonicalizeArrayType(T), C)
 //      rule canonicalizeArrayType(t(SetItem(Const) S:Set,
@@ -181,7 +181,7 @@ module C-TYPING-CANONICALIZATION
 
      syntax Bool ::= isGlobalScope(K) [function]
      rule isGlobalScope(file-scope) => true
-     rule isGlobalScope(prototype(K:K)) => isGlobalScope(K)
+     rule isGlobalScope(prototype(K:CId)) => isGlobalScope(K)
      rule isGlobalScope(_) => false [owise]
 
      syntax KItem ::= canonicalizeSpecifier(List)

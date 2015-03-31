@@ -132,15 +132,15 @@ module C-PROCESS-LABEL
           [structural]
 
      rule [compute-label-ignore-non-statement]:
-          <computation> L:KLabel(_:KList) => .K ...</computation>
+          <computation> K:KItem => .K ...</computation>
           requires false
-               orBool (L ==KLabel 'Nop)
-               orBool (L ==KLabel 'Computation)
-               orBool (L ==KLabel 'Break)
-               orBool (L ==KLabel 'Continue)
-               orBool (L ==KLabel 'Return)
-               orBool (L ==KLabel 'Goto)
-               orBool (L ==KLabel 'CompGoto)
+               orBool (getKLabel(K) ==K #klabel(`'Nop`))
+               orBool (getKLabel(K) ==K #klabel(`'Computation`))
+               orBool (getKLabel(K) ==K #klabel(`'Break`))
+               orBool (getKLabel(K) ==K #klabel(`'Continue`))
+               orBool (getKLabel(K) ==K #klabel(`'Return`))
+               orBool (getKLabel(K) ==K #klabel(`'Goto`))
+               orBool (getKLabel(K) ==K #klabel(`'CompGoto`))
           [structural]
 
      // - should do this with a split
@@ -327,11 +327,11 @@ module C-PROCESS-LABEL
           <tu-id> Tu </tu-id>
           <goto-map>...
                F:CId |-> map(
-                    (M:Map => M[genLabel(SwitchNum, l('Default))
+                    (M:Map => M[genLabel(SwitchNum, #klabel(`'Default`))
                      <- gotoObject(Depth, BlockHistory,
                          (S ~> K ~> Tail), LoopStack, DeclStack)]))
           ...</goto-map>
-          requires notBool (genLabel(SwitchNum, l('Default)) in keys(M))
+          requires notBool (genLabel(SwitchNum, #klabel(`'Default`)) in keys(M))
           [structural]
 endmodule
 

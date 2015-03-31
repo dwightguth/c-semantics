@@ -13,36 +13,36 @@ module C-TYPING-EXPR
 
      syntax Set ::= "assignmentLabels" [function]
      rule assignmentLabels =>
-          SetItem(l('_:=_))
-          SetItem(l('_*=_))
-          SetItem(l('_/=_))
-          SetItem(l('_%=_))
-          SetItem(l('_+=_))
-          SetItem(l('_-=_))
-          SetItem(l('_<<=_))
-          SetItem(l('_>>=_))
-          SetItem(l('_&=_))
-          SetItem(l('_^=_))
-          SetItem(l('_|=_))
+          SetItem(#klabel(`'_:=_`))
+          SetItem(#klabel(`'_*=_`))
+          SetItem(#klabel(`'_/=_`))
+          SetItem(#klabel(`'_%=_`))
+          SetItem(#klabel(`'_+=_`))
+          SetItem(#klabel(`'_-=_`))
+          SetItem(#klabel(`'_<<=_`))
+          SetItem(#klabel(`'_>>=_`))
+          SetItem(#klabel(`'_&=_`))
+          SetItem(#klabel(`'_^=_`))
+          SetItem(#klabel(`'_|=_`))
 
      syntax Set ::= "typeStrictLeftBinaryOperators" [function]
      rule typeStrictLeftBinaryOperators =>
-          SetItem(l('_<<_))
-          SetItem(l('_>>_))
-          SetItem(l('_*=_))
-          SetItem(l('_/=_))
-          SetItem(l('_%=_))
-          SetItem(l('_+=_))
-          SetItem(l('_-=_))
-          SetItem(l('_<<=_))
-          SetItem(l('_>>=_))
-          SetItem(l('_&=_))
-          SetItem(l('_^=_))
-          SetItem(l('_|=_))
-          SetItem(l('_++))
-          SetItem(l('_--))
-          SetItem(l('--_))
-          SetItem(l('++_))
+          SetItem(#klabel(`'_<<_`))
+          SetItem(#klabel(`'_>>_`))
+          SetItem(#klabel(`'_*=_`))
+          SetItem(#klabel(`'_/=_`))
+          SetItem(#klabel(`'_%=_`))
+          SetItem(#klabel(`'_+=_`))
+          SetItem(#klabel(`'_-=_`))
+          SetItem(#klabel(`'_<<=_`))
+          SetItem(#klabel(`'_>>=_`))
+          SetItem(#klabel(`'_&=_`))
+          SetItem(#klabel(`'_^=_`))
+          SetItem(#klabel(`'_|=_`))
+          SetItem(#klabel(`'_++`))
+          SetItem(#klabel(`'_--`))
+          SetItem(#klabel(`'--_`))
+          SetItem(#klabel(`'++_`))
 
      rule <k> typeof(K:K) => evalToType ~> typeof(MYHOLE) ...</k>
           (.Bag => <type> K:K </type>)
@@ -210,7 +210,7 @@ module C-TYPING-EXPR
                L:KLabel(K:K,, _)
                => K:K
           ...</type>
-          requires (l(L) in assignmentLabels)
+          requires (#klabel(L) in assignmentLabels)
           [structural]
 
      rule <type>
@@ -255,18 +255,18 @@ module C-TYPING-EXPR
           [structural]
 
      rule <type> L:KLabel(T:FloatType,, _:KList) => T ...</type>
-          requires (l(L) in typeStrictLeftBinaryOperators)
+          requires (#klabel(L) in typeStrictLeftBinaryOperators)
           [structural]
      rule <type> L:KLabel(T:IntegerType,, _:KList) => promote(T) ...</type>
-          requires (l(L) in typeStrictLeftBinaryOperators)
+          requires (#klabel(L) in typeStrictLeftBinaryOperators)
           [structural]
 
      rule <type> L:KLabel(T:PointerType) => T ...</type>
           requires (
-                    (L ==KLabel ('_++))
-                    orBool (L:KLabel ==KLabel ('_--))
-                    orBool (L:KLabel ==KLabel ('--_))
-                    orBool (L:KLabel ==KLabel ('++_))
+                    (#klabel(L) ==K #klabel(`'_++`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`'_--`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`'--_`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`'++_`))
                )
           [structural]
 
@@ -274,10 +274,10 @@ module C-TYPING-EXPR
           [structural]
 
      rule <type> L:KLabel(_:K,, _:K) => t(.Set, int) ...</type>
-          requires (L:KLabel ==KLabel '_==_)
-               orBool (L:KLabel ==KLabel '_!=_)
-               orBool (L:KLabel ==KLabel '_&&_)
-               orBool (L:KLabel ==KLabel '_||_)
+          requires (#klabel(L:KLabel) ==K #klabel(`'_==_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`'_!=_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`'_&&_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`'_||_`))
           [structural]
 
      rule <type> & T:Type => t(.Set, pointerType(T)) ...</type>

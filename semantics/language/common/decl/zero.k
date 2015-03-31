@@ -70,7 +70,7 @@ module C-DECL-ZERO
      rule zeroStruct(_, .List) => .K
           [structural]
 
-     syntax KItem ::= getZero(Type) [function]
+     syntax CValue ::= getZero(Type) [function]
      rule getZero(_:IntegerType) => 0
      rule getZero(_:FloatType) => 0.0
      rule getZero(_:PointerType) => NullPointer

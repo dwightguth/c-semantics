@@ -71,9 +71,9 @@ module C-MEMORY-ALLOC
           [structural]
 
      // Used by calloc.
-     syntax Map ::= createMap(KList, Bits) [function]
-     rule createMap(.KList, _:Bits) => .Map
-     rule createMap((I:K,, KL:KList), B:Bits) => (I |-> B) createMap(KL, B)
+     syntax Map ::= createMap(List, Bits) [function]
+     rule createMap(.List, _:Bits) => .Map
+     rule createMap(ListItem(I:K) L:List, B:Bits) => (I |-> B) createMap(L, B)
 
      rule <k> zeroObject(Base:SymBase) => .K ...</k>
           <mem>...

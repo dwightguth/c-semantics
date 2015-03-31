@@ -40,38 +40,38 @@ module C-PROMOTION
      syntax Set ::= "arithBinConversionOps" [function]
 
      rule arithBinOps
-          => arithBinConversionOps (SetItem(l('_<<_)) SetItem(l('_>>_)))
+          => arithBinConversionOps (SetItem(#klabel(`'_<<_`)) SetItem(#klabel(`'_>>_`)))
      rule arithBinConversionOps =>
-               SetItem(l('_*_))
-               SetItem(l('_/_))
-               SetItem(l('_%_))
-               SetItem(l('_+_))
-               SetItem(l('_-_))
-               SetItem(l('_<_))
-               SetItem(l('_>_))
-               SetItem(l('_<=_))
-               SetItem(l('_>=_))
-               SetItem(l('_==_))
-               SetItem(l('_!=_))
-               SetItem(l('_&_))
-               SetItem(l('_|_))
-               SetItem(l('_^_))
+               SetItem(#klabel(`'_*_`))
+               SetItem(#klabel(`'_/_`))
+               SetItem(#klabel(`'_%_`))
+               SetItem(#klabel(`'_+_`))
+               SetItem(#klabel(`'_-_`))
+               SetItem(#klabel(`'_<_`))
+               SetItem(#klabel(`'_>_`))
+               SetItem(#klabel(`'_<=_`))
+               SetItem(#klabel(`'_>=_`))
+               SetItem(#klabel(`'_==_`))
+               SetItem(#klabel(`'_!=_`))
+               SetItem(#klabel(`'_&_`))
+               SetItem(#klabel(`'_|_`))
+               SetItem(#klabel(`'_^_`))
 
      rule isArithBinOp(Lbl:KLabel)
-          => #if (l(Lbl:KLabel) in arithBinOps) #then true #else false #fi
+          => #if (#klabel(Lbl:KLabel) in arithBinOps) #then true #else false #fi
           [structural]
      rule isArithBinConversionOp(Lbl:KLabel)
-          => #if (l(Lbl:KLabel) in arithBinConversionOps) #then true #else false #fi
+          => #if (#klabel(Lbl:KLabel) in arithBinConversionOps) #then true #else false #fi
           [structural]
 
      syntax Set ::= "arithUnaryOps" [function]// [memo]
      rule arithUnaryOps =>
-          SetItem(l('-_))
-          SetItem(l('+_))
-          SetItem(l('~_))
+          SetItem(#klabel(`'-_`))
+          SetItem(#klabel(`'+_`))
+          SetItem(#klabel(`'~_`))
 
      rule isArithUnaryOp(Lbl:KLabel)
-          => #if (l(Lbl:KLabel) in arithUnaryOps) #then true #else false #fi
+          => #if (#klabel(Lbl:KLabel) in arithUnaryOps) #then true #else false #fi
           [structural]
 
      // \csection{6}{3}{1}{0}{Arithmetic operands}

@@ -275,7 +275,7 @@ module C-DECL-GLOBAL
 
      // Naked function declarations are treated as though they were qualified
      // extern.
-     syntax KItem ::= isExtern(Type) [function]
+     syntax Bool ::= isExtern(Type) [function]
      rule isExtern(T:Type)
           => (isExternType(T) orBool isFunctionType(T))
                andBool notBool isStaticType(T)
@@ -299,7 +299,7 @@ module C-DECL-GLOBAL
                ~> declareExternalVariable'(
                     allowInit(figureInit(X, T, K)),
                     State, internal,
-                    #if isExtern(T) #then Extern #else Static #fi)
+                    #if isExtern(T) #then Extern #else Static #fi:>Storage)
           ...</k>
           <curr-tu> Tu:String </curr-tu>
           <tu-id> Tu </tu-id>
@@ -380,7 +380,7 @@ module C-DECL-GLOBAL
                ~> declareExternalVariable'(
                     allowInit(figureInit(X, T, K)),
                     declared, external,
-                    #if isExtern(T) #then Extern #else Static #fi)
+                    #if isExtern(T) #then Extern #else Static #fi:>Storage)
           ...</k>
           <curr-tu> Tu:String </curr-tu>
           <tu-id> Tu </tu-id>
