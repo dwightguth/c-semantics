@@ -171,7 +171,8 @@ module C-TYPING-SYNTAX
      // Strips function and storage specifiers.
      syntax Type ::= stripSpecifiers(Type) [function]
      syntax Type ::= stripQualifiers(Type) [function]
-     syntax KItem ::= stripConstants(K) [function]
+     syntax Type ::= stripConstants(Type) [function, klabel(stripConstantsType)]
+     syntax RValue ::= stripConstants(RValue) [function, klabel(stripConstantsRValue)]
      syntax Type ::= stripAlignas(Type) [function]
 
      syntax Type ::= addQualifier(CVSpecifier, Type) [function]

@@ -239,11 +239,11 @@ module C-TYPING-COMPATIBILITY
      rule getAlignas'(.K, SetItem(K:K) Mods:Set) => getAlignas'(K, Mods)
      rule getAlignas'(alignas(A:Int), _) => A
      rule getAlignas'(K:K, Mods:Set) => getAlignas'(.K, Mods)
-          requires getKLabel(K) =/=KLabel 'alignas
+          requires getKLabel(K) =/=K #klabel(`'alignas`)
                andBool (K =/=K .K)
 
      syntax Bool ::= "#hasAlignas" "(" Set ")" [function]
-     rule #hasAlignas(Mods:Set) => some(Mods, '#isAlignas)
+     rule #hasAlignas(Mods:Set) => some(Mods, #klabel(`'#isAlignas`))
 
      syntax Bool ::= "#isAlignas" "(" K ")" [function]
      rule #isAlignas(alignas(_)) => true

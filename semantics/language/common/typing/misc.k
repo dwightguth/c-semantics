@@ -9,6 +9,7 @@ module C-TYPING-MISC
      imports C-SYNTAX
 
      imports COMPAT-SYNTAX
+     imports K-REFLECTION
 
      //TODO(chathhorn): a lot of junk dumped here.
 
@@ -195,14 +196,14 @@ module C-TYPING-MISC
           => stripStorageSpecifiers(stripFunctionSpecifiers(T))
 
      rule stripAlignas(t(Mods:Set, T:SimpleType))
-          => t(filterSet(Mods, 'isNotAlignas), T)
+          => t(filterSet(Mods, #klabel(`'isNotAlignas`)), T)
 
      syntax Bool ::= isNotAlignas(Modifier) [function]
      rule isNotAlignas(alignas(_)) => false
      rule isNotAlignas(_) => true [owise]
 
      rule stripReadFrom(t(Mods:Set, T:SimpleType))
-          => t(filterSet(Mods, 'isNotReadFrom), T)
+          => t(filterSet(Mods, #klabel(`'isNotReadFrom`)), T)
 
      syntax Bool ::= isNotReadFrom(Modifier) [function]
      rule isNotReadFrom(readFrom(_, _)) => false
@@ -211,7 +212,8 @@ module C-TYPING-MISC
      rule stripConstants(T:Type)
           => setModifiers(T, getModifiers(T) -Set constantModifiers)
      rule stripConstants(tv(V:CValue, T:Type)) => tv(V, stripConstants(T))
-     rule stripConstants(V:KItem) => V [owise]
+     rule stripConstants(T:Type) => T [owise]
+     rule stripConstants(V:RValue) => V [owise]
 
      rule addQualifier(Q:CVSpecifier, T:Type)
           => addQualifiers(SetItem(Q), T)
@@ -320,7 +322,7 @@ module C-TYPING-MISC
      rule getRestrictBlock'(.K, SetItem(K:K) S:Set) => getRestrictBlock'(K, S)
      rule getRestrictBlock'(RestrictBlock(Tag:RestrictTag), _) => Tag
      rule getRestrictBlock'(K:K, S:Set) => getRestrictBlock'(.K, S)
-          requires getKLabel(K) =/=KLabel 'RestrictBlock
+          requires getKLabel(K) =/=K #klabel(`'RestrictBlock`)
                andBool (K =/=K .K)
 
      rule getReadFrom(t(Mods:Set, _)) => getReadFrom'(.K, Mods)
@@ -329,7 +331,7 @@ module C-TYPING-MISC
      rule getReadFrom'(.K, SetItem(K:K) S:Set) => getReadFrom'(K, S)
      rule getReadFrom'(readFrom(Loc:SymLoc, Len:Int), _) => readFrom(Loc, Len)
      rule getReadFrom'(K:K, S:Set) => getReadFrom'(.K, S)
-          requires getKLabel(K) =/=KLabel 'readFrom
+          requires getKLabel(K) =/=K #klabel(`'readFrom`)
                andBool (K =/=K .K)
 
      rule getReadFromLoc(T:Type) => #getReadFromLoc(getReadFrom(T))
@@ -356,7 +358,7 @@ module C-TYPING-MISC
      rule getFieldInfo(S:StructId) => #getFieldInfo(S, #configuration)
      rule getFieldInfo(t(_, structType(S:StructId))) => getFieldInfo(S)
      rule getFieldInfo(t(_, unionType(S:StructId))) => getFieldInfo(S)
-     syntax KItem ::= #getFieldInfo(StructId, Bag) [function]
+     syntax FieldInfo ::= #getFieldInfo(StructId, Bag) [function]
      rule #getFieldInfo(S:StructId, <generatedTop>... <global>... <structs>... S |-> F:FieldInfo ...</structs> ...</global> ...</generatedTop> _:Bag)
           => F
      rule #getFieldInfo(_, _) => #incomplete [owise]

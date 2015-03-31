@@ -116,7 +116,7 @@ module C-COMMON-EXPR-EVAL
           [structural]
 
      rule checkUse(V:KResult) => V
-          requires getKLabel(V) =/=KLabel 'tv
+          requires getKLabel(V) =/=K #klabel(`'tv`)
           [structural]
      rule checkUse(tv(V:CValue, T:Type)) => tv(V, T)
           requires isSymLoc(V) =/=K true andBool isTrap(V) =/=K true

@@ -67,7 +67,7 @@ module C-IO-DIRECT
           [structural]
 
      syntax List ::= values(List) [function]
-     rule values(ListItem(tv(K:K, _)) L:List) => ListItem(K:K) values(L:List)
+     rule values(ListItem(tv(K:CValue, _)) L:List) => ListItem(K) values(L:List)
      rule values(.List) => .List
 
      rule readBytes-aux(_, 0, Aux:List)

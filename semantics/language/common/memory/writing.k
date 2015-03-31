@@ -89,14 +89,14 @@ module C-MEMORY-WRITING
 
      rule keepUnion(.Set) => .Set
      rule keepUnion(SetItem(K:K) S:Set) =>
-          #if (getKLabel(K) ==KLabel 'fromUnion)
+          #if (getKLabel(K) ==K #klabel(`'fromUnion`))
           #then (SetItem(K) keepUnion(S))
           #else keepUnion(S)
           #fi
 
      rule stripUnion(.Set) => .Set
      rule stripUnion(SetItem(K:K) S:Set) =>
-          #if (getKLabel(K) ==KLabel 'fromUnion)
+          #if (getKLabel(K) ==K #klabel(`'fromUnion`))
           #then stripUnion(S)
           #else (SetItem(K) stripUnion(S))
           #fi
@@ -285,7 +285,7 @@ module C-MEMORY-WRITING
      syntax Bool ::= isNonPaddingOffset(Int, List, Map, Map) [function]
      rule isNonPaddingOffset(Offset:Int, ListItem(typedDeclaration(_, F:CId)) 
           Decls:List, Types:Map, Offsets:Map)
-          => (Offsets[F] <=Int Offset andBool Offset <Int Offsets[F] +Int
+          => (Offsets[F]:>Int <=Int Offset andBool Offset <Int Offsets[F] +Int
                byteSizeofType(Types[F]):>Int)
           orBool isNonPaddingOffset(Offset, Decls, Types, Offsets)
      rule isNonPaddingOffset(_, .List, _, _) => false

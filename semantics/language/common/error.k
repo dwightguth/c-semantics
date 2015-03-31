@@ -36,7 +36,7 @@ module C-ERROR
      imports COMPAT-SYNTAX
 
      rule assert(true, _) => .K
-     rule assert(A:KResult, K:K) => K
+     rule assert(A:KResult, K:Error) => K
           requires A =/=K true
 
      syntax KItem ::= EXITFunc(String) [function, hook(C-SEMANTICS:error), impure]

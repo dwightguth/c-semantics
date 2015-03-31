@@ -240,7 +240,7 @@ module C-TYPING-INTERPRETATION
           => t(S, functionType(extractActualType(T), L))
      rule extractActualType(t(S:Set, pointerType(T:Type)))
           => t(S, pointerType(extractActualType(T)))
-     rule extractActualType(t(S:Set, typedefType(_, t(S':Set, T:K))))
+     rule extractActualType(t(S:Set, typedefType(_, t(S':Set, T:SimpleType))))
           => extractActualType(t(S S', T))
 
      syntax KItem ::= NameAndType(CId, K) [strict(2)]

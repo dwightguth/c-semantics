@@ -7,7 +7,7 @@ module C-CONVERSION-SYNTAX
      // as described in 6.3 // totype, fromvalue
      // change it to function in order
      // to solve anywhere rule
-     syntax KItem ::= cast(Type, RValue) [function]
+     syntax RValue ::= cast(Type, RValue) [function]
      //Might not need this if we have anywhere rule
      syntax KItem ::= castHold(Type, RValue)
 endmodule

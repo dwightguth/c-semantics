@@ -17,6 +17,8 @@ module C-TRANSLATION-ERROR
      imports COMPAT-SYNTAX
      imports DEBUG-SYNTAX
 
+     imports K-IO
+
      rule <k> EXIT(Msg:String)
           => #write(2, Msg +String "\n")
           ~> #write(2, "File: " +String File

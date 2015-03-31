@@ -5,10 +5,6 @@ module COMPAT-SYNTAX
 
      syntax KBott ::= "(" K ")" [bracket]
 
-     //TODO(liyi): must not need the second one
-     syntax KItem ::= l(KLabel) [avoid]
-     syntax KItem ::= klist(KList) [function]
-
      syntax String ::= firstChar(String) [function]
      syntax String ::= nthChar(String, Int) [function]
      syntax String ::= butFirstChar(String) [function]
@@ -49,13 +45,13 @@ module COMPAT-SYNTAX
 
      syntax KItem ::= kpair(K, K)
 
-     syntax KList ::= Int "to" Int [function]
+     syntax List ::= Int "to" Int [function]
 
      syntax List ::= times(Int, K) [function]
 
-     syntax Set ::= filterSet(Set, KLabel) [function]
+     syntax Set ::= filterSet(Set, K) [function]
 
-     syntax Bool ::= some(Set, KLabel) [function]
+     syntax Bool ::= some(Set, K) [function]
 
      //TODO(liyi): might not need this later
      syntax KItem ::= "dotK"
@@ -89,8 +85,8 @@ module COMPAT
           butFirstChar(S:String)
           => substrString(S:String, 1, lengthString(S:String))
 
-     rule all(ListItem(K:K) L:List, Lbl:KLabel)
-          => Lbl(K:K) andBool all(L, Lbl)
+     rule all(ListItem(K:K) L:List, #klabel(Lbl:KLabel))
+          => Lbl(K:K) andBool all(L, #klabel(Lbl))
      rule all(.List, _) => true
 
      rule toUpperCase(S:String)
@@ -135,17 +131,17 @@ module COMPAT
      rule subset(K:K, _, S2:Set) => false
           requires notBool (K in S2)
 
-     rule '_==MSet_(.List ,, .List) => true
-     rule '_==MSet_(.List ,, ListItem(_) _:List) => false
-     rule '_==MSet_(ListItem(_) _:List ,, .List) => false
-     rule '_==MSet_(ListItem(K:K) M:List ,, M':List)
-          => '_==MSet_(M:List ,, removeListItem(M', K))
+     rule `'_==MSet_`(.List ,, .List) => true
+     rule `'_==MSet_`(.List ,, ListItem(_) _:List) => false
+     rule `'_==MSet_`(ListItem(_) _:List ,, .List) => false
+     rule `'_==MSet_`(ListItem(K:K) M:List ,, M':List)
+          => `'_==MSet_`(M:List ,, removeListItem(M', K))
           requires K:K in M':List
-     rule '_==MSet_(ListItem(K:K) _:List ,, M':List)
+     rule `'_==MSet_`(ListItem(K:K) _:List ,, M':List)
           => false
           requires notBool (K:K in M':List)
 
-     rule M:List =/=MSet M':List => notBool '_==MSet_(M ,, M')
+     rule M:List =/=MSet M':List => notBool `_==MSet_`(M ,, M')
 
      rule list(L:List) => toKRList(L)
           [structural]
@@ -173,7 +169,7 @@ module COMPAT
 
      rule toKRList'((srItem(V:KResult) ss:: S:SubKRList) => S)
           ~> krlist(_:List (.List => ListItem(V)))
-          requires getKLabel(V) =/=KLabel 'krlist
+          requires getKLabel(V) =/=K #klabel(`'krlist`)
           [structural]
      // Somewhat contrived feature: nested lists are flattened.
      rule toKRList'((srItem(krlist(L:List)) ss:: S:SubKRList) => S)
@@ -189,48 +185,44 @@ module COMPAT
      rule listToK(ListItem(K:K) L:List) => K ~> listToK(L)
      rule listToK(.List) => .K
 
-     rule N:Int to N => .KList
-     rule N:Int to N':Int => (N,, ((N +Int 1) to N'))
+     rule N:Int to N => .List
+     rule N:Int to N':Int => ListItem(N)  ((N +Int 1) to N')
           requires N <Int N'
 
      rule times(0, _) => .List
      rule times(N:Int, K:K) => ListItem(K) times(N -Int 1, K)
           requires N >Int 0
 
-     syntax List ::= klistToList(KList) [function]
+     rule `'klist`(K:K,, L:KList) => ListItem(K) `'klist`(L) [macro]
+     rule `'klist`(.KList) => .List [macro]
 
-     rule klistToList((K:K,, L:KList)) => ListItem(K) klistToList(L)
-     rule klistToList(.KList) => .List
+     syntax Set ::= #filterSet(K, Set, K) [function]
 
-     rule `klist`(L:KList) => `list`(klistToList(L))
-
-     syntax Set ::= #filterSet(K, Set, KLabel) [function]
-
-     rule #filterSet(K:K, .Set, Pred:KLabel)
+     rule #filterSet(K:K, .Set, #klabel(Pred:KLabel))
           => SetItem(K)
           requires Pred(K) ==K true
-     rule #filterSet(K:K, .Set, Pred:KLabel)
+     rule #filterSet(K:K, .Set, #klabel(Pred:KLabel))
           => .Set
           requires Pred(K) =/=K true
-     rule #filterSet(K:K, SetItem(K':K) S:Set, Pred:KLabel)
-          => SetItem(K) #filterSet(K', S, Pred)
+     rule #filterSet(K:K, SetItem(K':K) S:Set, #klabel(Pred:KLabel))
+          => SetItem(K) #filterSet(K', S, #klabel(Pred))
           requires Pred(K) ==K true
-     rule #filterSet(K:K, SetItem(K':K) S:Set, Pred:KLabel)
-          => #filterSet(K', S, Pred)
+     rule #filterSet(K:K, SetItem(K':K) S:Set, #klabel(Pred:KLabel))
+          => #filterSet(K', S, #klabel(Pred))
           requires Pred(K) =/=K true
 
-     rule filterSet(SetItem(K:K) S:Set, Pred:KLabel)
+     rule filterSet(SetItem(K:K) S:Set, Pred:K)
           => #filterSet(K, S, Pred)
      rule filterSet(.Set, _)
           => .Set
 
-     rule some(S:Set, Lbl:KLabel) => some'(.K, S, Lbl)
+     rule some(S:Set, Lbl:K) => some'(.K, S, Lbl)
 
-     syntax Bool ::= "some'" "(" K "," Set "," KLabel ")" [function]
-     rule some'(.K, SetItem(K:K) S:Set, Lbl:KLabel) => some'(K, S, Lbl)
-     rule some'(K:K, _, Lbl:KLabel) => true
+     syntax Bool ::= "some'" "(" K "," Set "," K ")" [function]
+     rule some'(.K, SetItem(K:K) S:Set, Lbl:K) => some'(K, S, Lbl)
+     rule some'(K:K, _, #klabel(Lbl:KLabel)) => true
           requires Lbl(K) ==K true
-     rule some'(K:K, S:Set, Lbl:KLabel) => some'(.K, S, Lbl)
+     rule some'(K:K, S:Set, #klabel(Lbl:KLabel)) => some'(.K, S, #klabel(Lbl))
           requires Lbl(K) =/=K true
                andBool (K =/=K .K)
      rule some'(.K, .Set, _) => false
