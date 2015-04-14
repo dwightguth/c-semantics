@@ -1,8 +1,6 @@
 module C-BITS-SYNTAX
      imports C-SYMLOC-SYNTAX
 
-     syntax Bits ::= Int
-
      syntax Trap ::= "trap"
      syntax Unknown ::= "unknown"
      syntax Bits ::= Trap

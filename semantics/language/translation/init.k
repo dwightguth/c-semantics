@@ -23,6 +23,8 @@ module C-TRANSLATION-INIT
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      rule <k> link

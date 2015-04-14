@@ -12,6 +12,10 @@ module C-COMMON-EXPR-MEMBERS
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
+     imports MAP
+
      /*@ \fromStandard{\source[n1570]{\para{6.5.2.3}{3}}}{
      A postfix expression followed by the \cinline{.} operator and an
      identifier designates a member of a structure or union object. The value

@@ -32,6 +32,7 @@ module C-MEMORY-ALLOC
      imports C-TYPING-SYNTAX
      imports C-ERROR-SYNTAX
 
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      rule writeString(Loc:SymLoc, S:String)

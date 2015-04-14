@@ -1,5 +1,6 @@
 module C-STMT-GOTO
      imports C-SYNTAX
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      syntax KItem ::= verifyGoto(K, CId)

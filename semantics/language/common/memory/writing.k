@@ -28,6 +28,7 @@ module C-MEMORY-WRITING
      imports C-SETTINGS-SYNTAX
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
+     imports C-CONFIGURATION
 
      // Write thread-local or auto.
      rule <k> write(Loc:SymLoc, V:CValue, T:Type)

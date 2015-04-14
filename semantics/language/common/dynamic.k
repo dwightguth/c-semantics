@@ -6,8 +6,11 @@ module C-DYNAMIC-SYNTAX
      imports SET
 
      syntax SimpleType // defined in C-TYPING-SYNTAX
-     syntax Bits // defined in C-BITS-SYNTAX
+     syntax Bits ::= Int
      syntax SymLoc // defined in C-SYMLOC-SYNTAX
+
+     syntax CSize ::= Int
+     syntax CValue ::= CSize
 
      syntax Type ::= t(Set, SimpleType)
 
@@ -71,6 +74,7 @@ module C-DYNAMIC
      imports C-SETTINGS-SYNTAX
      imports C-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      context toRVal(HOLE => reval(HOLE)) [result(RValue)]
      rule toRVal(V:RValue) => V

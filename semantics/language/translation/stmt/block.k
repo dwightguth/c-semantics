@@ -4,6 +4,8 @@ module C-STMT-BLOCK
      imports C-MEMORY-ALLOC-SYNTAX
      imports COMPAT-SYNTAX
 
+     imports C-CONFIGURATION
+
      rule BlockStatement(B:K)
           => pushBlock ~> B ~> popBlock
           [structural]

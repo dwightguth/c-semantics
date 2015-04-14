@@ -13,6 +13,7 @@ module C-TRANSLATION-ERROR
      imports C-SYMLOC-SYNTAX
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
+     imports C-CONFIGURATION
 
      imports COMPAT-SYNTAX
      imports DEBUG-SYNTAX

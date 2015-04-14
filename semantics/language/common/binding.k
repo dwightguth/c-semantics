@@ -23,6 +23,8 @@ module C-BINDING
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      // Construct the function parameters. Takes three lists: (1) the formal

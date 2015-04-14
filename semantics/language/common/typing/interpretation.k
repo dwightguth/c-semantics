@@ -17,6 +17,7 @@ module C-TYPING-INTERPRETATION
      imports C-TYPING-CANONICALIZATION-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      // Rules that use specifier should be careful to use extractActualType if

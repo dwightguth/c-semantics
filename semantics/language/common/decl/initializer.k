@@ -33,6 +33,7 @@ module C-DECL-INITIALIZER
      imports C-TYPING-SYNTAX
      imports C-BUILTIN-SYNTAX
      imports C-BITSIZE-SYNTAX
+     imports C-CONFIGURATION
 
      rule <k> allowInit(K:K) => K ~> initDone ...</k>
           <initializing> I:Int => I +Int 1 </initializing>

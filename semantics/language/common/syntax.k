@@ -5,6 +5,8 @@ module C-SYNTAX
      imports BOOL-SYNTAX
      imports LIST
 
+     syntax KBott ::= "(" K ")" [bracket]
+
      // these are semantic
      syntax KItem ::= reval(K)
 

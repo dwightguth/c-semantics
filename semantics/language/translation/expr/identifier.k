@@ -7,6 +7,8 @@ module C-EXPR-IDENTIFIER
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      rule <k> X:CId => lv(lnew(Base, getAlignas(T)), T) ...</k>
           <env>... X |-> Base:SymBase ...</env>
           <types>... X |-> T:Type ...</types>

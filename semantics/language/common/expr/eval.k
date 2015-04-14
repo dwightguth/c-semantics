@@ -19,6 +19,8 @@ module C-COMMON-EXPR-EVAL
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      rule reval(K:K) => K ~> reval(HOLE) [heat]
      rule K:K ~> reval(HOLE) => reval(K) [cool, ndlocal]
 

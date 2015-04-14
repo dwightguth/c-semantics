@@ -21,6 +21,8 @@ module C-FUNCTION-DEF
      imports C-BINDING-SYNTAX
      imports C-ANNOTATION-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      rule FunctionDefinition(typedDeclaration(T:FunctionType, X:CId), Blk:K)
