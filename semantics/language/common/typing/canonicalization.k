@@ -15,6 +15,7 @@ module C-TYPING-CANONICALIZATION
      imports C-ALIGNMENT-SYNTAX
      imports COMPAT-SYNTAX
      imports DEBUG-SYNTAX
+     imports C-CONFIGURATION
 
      imports BOOL
 

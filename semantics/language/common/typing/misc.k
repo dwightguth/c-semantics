@@ -8,6 +8,7 @@ module C-TYPING-MISC
      imports C-SYMLOC-SYNTAX
      imports C-SYNTAX
 
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
      imports K-REFLECTION
 

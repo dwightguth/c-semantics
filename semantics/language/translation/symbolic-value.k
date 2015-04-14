@@ -24,6 +24,8 @@ module C-SYMBOLIC-VALUE
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      // Various rules for cramming this symVal down the throat of the

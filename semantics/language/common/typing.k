@@ -51,9 +51,6 @@ module C-TYPING-SYNTAX
      syntax Set ::= "typeQualifiers" [function]
      syntax Set ::= "storageSpecifiers" [function]
 
-     syntax CSize ::= Int
-     syntax CValue ::= CSize
-
      // Basic types
      syntax SimpleCharType ::= "char" [function]
      syntax SimpleSignedType ::= "short-int" | "int"

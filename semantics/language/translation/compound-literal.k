@@ -12,6 +12,7 @@ module C-COMPOUND-LITERAL
      imports C-TYPING-SYNTAX
 
      imports C-SETTINGS-SYNTAX
+     imports C-CONFIGURATION
 
      imports COMPAT-SYNTAX
 

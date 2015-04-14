@@ -3,8 +3,6 @@ module COMPAT-SYNTAX
      imports MAP
      imports KCELLS
 
-     syntax KBott ::= "(" K ")" [bracket]
-
      syntax String ::= firstChar(String) [function]
      syntax String ::= nthChar(String, Int) [function]
      syntax String ::= butFirstChar(String) [function]

@@ -15,6 +15,7 @@ module C-DECL-RESOLUTION
      imports C-DYNAMIC-SYNTAX
      imports C-ENV-SYNTAX
      imports C-MEMORY-ALLOC-SYNTAX
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      imports C-ERROR-SYNTAX

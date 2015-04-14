@@ -2,6 +2,9 @@ module C-SYNTAX
      imports BASIC-K
      imports STRING
      imports INT
+     imports LIST
+
+     syntax KBott ::= "(" K ")" [bracket]
 
      // these are semantic
      syntax KItem ::= reval(K)

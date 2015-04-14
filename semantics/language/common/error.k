@@ -34,6 +34,7 @@ module C-ERROR
      imports C-MEMORY-ALLOC-SYNTAX
 
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      rule assert(true, _) => .K
      rule assert(A:KResult, K:Error) => K

@@ -11,6 +11,8 @@ module C-IO-DIRECT
      imports C-TYPING-SYNTAX
      imports COMPAT-SYNTAX
 
+     imports C-CONFIGURATION
+
      syntax KItem ::= writeBytes(SymLoc, DataList)
      syntax KItem ::= writeByte(SymLoc, CValue)
 

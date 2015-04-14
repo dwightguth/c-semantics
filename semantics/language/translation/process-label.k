@@ -10,6 +10,7 @@ module C-PROCESS-LABEL
      imports C-DYNAMIC-SYNTAX
      imports C-TYPING-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      /*
      things I have to keep track of:

@@ -10,6 +10,7 @@ module C-TYPING-EXPR
      imports C-SETTINGS-SYNTAX
      imports C-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      syntax Set ::= "assignmentLabels" [function]
      rule assignmentLabels =>

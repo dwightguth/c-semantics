@@ -13,6 +13,8 @@ module C-DECL-ZERO
      imports C-SYMLOC-SYNTAX
      imports C-BITS-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports DEBUG-SYNTAX
 
      rule <k> zero(X:CId) => zeroType(X, T) ...</k>

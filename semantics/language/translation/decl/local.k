@@ -12,6 +12,8 @@ module C-DECL-LOCAL
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      // TODO(chathhorn): Totally not sure what to do about these first cases.

@@ -17,6 +17,7 @@ module C-ENV
      imports C-DECL-DEFINITION-SYNTAX
 
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      rule <k> addToHistory(Num:Int) => .K ...</k>
           <block-history> .List => ListItem(Num) ...</block-history>

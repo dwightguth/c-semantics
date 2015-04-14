@@ -10,6 +10,7 @@ module C-TYPING-STRICTNESS
      imports C-TYPING-SYNTAX
 
      imports C-SYNTAX
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      syntax KItem ::= "waitingOnDeclType"

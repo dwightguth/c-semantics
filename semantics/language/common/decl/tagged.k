@@ -20,6 +20,8 @@ module C-DECL-TAGGED
      imports C-SETTINGS-SYNTAX
      imports C-TYPING-SYNTAX
 
+     imports C-CONFIGURATION
+
      imports COMPAT-SYNTAX
 
      // TODO(chathhorn): handle global/local differently.
