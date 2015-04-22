@@ -127,9 +127,9 @@ module C-DYNAMIC
      rule NothingExpression => emptyValue:>Expression
 
      rule unwrapObj(<generatedTop>...
-               <global> G:Bag </global>
+               G:GlobalCell
           ...</generatedTop>)
-          => <global> G </global>
+          => G
 
      rule unwrapObj(.Bag) => .Bag
 
