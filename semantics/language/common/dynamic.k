@@ -135,7 +135,6 @@ module C-DYNAMIC
 
      rule <k> loadObj(<global> G:Bag </global>) => .K ...</k>
           <global> (_:Bag => G) </global>
-          requires (G =/=K .Bag)
           [structural]
 
      rule loadObj(.Bag) => .K

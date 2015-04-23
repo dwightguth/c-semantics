@@ -2,8 +2,8 @@ module C-PROMOTION-SYNTAX
      imports KAST
      // should be K, but is Type for efficiency reasons
      syntax Type ::= promote(Type) [function]
-     syntax Bool ::= isArithBinConversionOp(KLabel) [function]
-     syntax Bool ::= isArithUnaryOp(KLabel) [function]
+     syntax Bool ::= isArithBinConversionOp(K) [function]
+     syntax Bool ::= isArithUnaryOp(K) [function]
      syntax Type ::= usualArithmeticConversion(Type, Type) [function]
      syntax Bool ::= isPromoted(Type) [function]
 
@@ -34,7 +34,7 @@ module C-PROMOTION
      the value or the representation.
      }*/
 
-     syntax Bool ::= isArithBinOp(KLabel) [function]
+     syntax Bool ::= isArithBinOp(K) [function]
 
      syntax Set ::= "arithBinOps" [function]
      syntax Set ::= "arithBinConversionOps" [function]
@@ -57,11 +57,11 @@ module C-PROMOTION
                SetItem(#klabel(`'_|_`))
                SetItem(#klabel(`'_^_`))
 
-     rule isArithBinOp(Lbl:KLabel)
-          => #if (#klabel(Lbl:KLabel) in arithBinOps) #then true #else false #fi
+     rule isArithBinOp(Lbl:K)
+          => #if (Lbl in arithBinOps) #then true #else false #fi
           [structural]
-     rule isArithBinConversionOp(Lbl:KLabel)
-          => #if (#klabel(Lbl:KLabel) in arithBinConversionOps) #then true #else false #fi
+     rule isArithBinConversionOp(Lbl:K)
+          => #if (Lbl in arithBinConversionOps) #then true #else false #fi
           [structural]
 
      syntax Set ::= "arithUnaryOps" [function]// [memo]
@@ -70,8 +70,8 @@ module C-PROMOTION
           SetItem(#klabel(`'+_`))
           SetItem(#klabel(`'~_`))
 
-     rule isArithUnaryOp(Lbl:KLabel)
-          => #if (#klabel(Lbl:KLabel) in arithUnaryOps) #then true #else false #fi
+     rule isArithUnaryOp(Lbl:K)
+          => #if (Lbl in arithUnaryOps) #then true #else false #fi
           [structural]
 
      // \csection{6}{3}{1}{0}{Arithmetic operands}
@@ -173,21 +173,21 @@ module C-PROMOTION
      rule L:KLabel(
                (tv(V:CValue, T:IntegerType) => tv(V, promote(T)))
           )
-          requires isArithUnaryOp(L)
+          requires isArithUnaryOp(#klabel(L))
                andBool notBool isPromoted(T)
           [structural]
      rule L:KLabel(
                (tv(V:CValue, T:IntegerType) => tv(V, promote(T)))
                ,, _
           )
-          requires isArithBinOp(L)
+          requires isArithBinOp(#klabel(L))
                andBool notBool isPromoted(T)
           [structural]
      rule L:KLabel(
                _,,
                (tv(V:CValue, T:IntegerType) => tv(V, promote(T)))
           )
-          requires isArithBinOp(L)
+          requires isArithBinOp(#klabel(L))
                andBool notBool isPromoted(T)
           [structural]
 
@@ -243,13 +243,13 @@ module C-PROMOTION
           => Lbl(cast(
                usualArithmeticConversion(T, T'), tv(V, T)),,
                cast(usualArithmeticConversion(T, T'), tv(V', T')))
-          requires isArithBinConversionOp(Lbl)
+          requires isArithBinConversionOp(#klabel(Lbl))
                andBool (T =/=Type T')
           [structural]
 
      rule Lbl:KLabel(tv(_, (T:Type => stripConstants(T))),, 
                      tv(_, (T':Type => stripConstants(T'))))
-          requires isArithBinOp(Lbl)
+          requires isArithBinOp(#klabel(Lbl))
                andBool (T ==Type T')
                andBool (IntegerConstant in getModifiers(T) xorBool IntegerConstant in getModifiers(T'))
 

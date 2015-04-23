@@ -218,7 +218,7 @@ module C-TYPING-EXPR
                L:KLabel(T:ArithmeticType,, T':ArithmeticType)
                => usualArithmeticConversion(T, T')
           ...</type>
-          requires isArithBinConversionOp(L)
+          requires isArithBinConversionOp(#klabel(L))
           [structural]
 
      rule <type>
@@ -249,10 +249,10 @@ module C-TYPING-EXPR
           [structural]
 
      rule <type> L:KLabel(T:FloatType) => T ...</type>
-          requires isArithUnaryOp(L)
+          requires isArithUnaryOp(#klabel(L))
           [structural]
      rule <type> L:KLabel(T:IntegerType) => promote(T) ...</type>
-          requires isArithUnaryOp(L)
+          requires isArithUnaryOp(#klabel(L))
           [structural]
 
      rule <type> L:KLabel(T:FloatType,, _:KList) => T ...</type>

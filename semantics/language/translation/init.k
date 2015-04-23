@@ -1,6 +1,6 @@
 module C-TRANSLATION-INIT-SYNTAX
-     imports KCELLS
-     syntax KItem ::= load(Bag, Bag, Bag, Bag)
+     imports BASIC-K
+     syntax KItem ::= load(K, K, K, K)
      syntax KItem ::= "link" | "cleanup"
 
      syntax TransOpts ::= "DEBUG" | "NOLINK"
@@ -36,23 +36,23 @@ module C-TRANSLATION-INIT
           <options> Opts:Set </options>
           requires notBool (NOLINK in Opts)
 
-     rule load(Obj1:Bag, Obj2:Bag, Obj3:Bag, Obj4:Bag)
+     rule load(Obj1:K, Obj2:K, Obj3:K, Obj4:K)
                => load(mergeObj(Obj1, Obj2), Obj3, Obj4)
                ~> checkMerge(Obj1, Obj2)
 
-     syntax KItem ::= load(Bag, Bag, Bag)
-     syntax KItem ::= load(Bag, Bag)
-     syntax KItem ::= load(Bag)
+     syntax KItem ::= load(K, K, K)
+     syntax KItem ::= load(K, K)
+     syntax KItem ::= load(K)
 
-     rule load(Merged:Bag, Obj3:Bag, Obj4:Bag)
+     rule load(Merged:K, Obj3:K, Obj4:K)
                => load(mergeObj(Merged, Obj3), Obj4)
                ~> checkMerge(Merged, Obj3)
 
-     rule load(Merged:Bag, Obj4:Bag)
+     rule load(Merged:K, Obj4:K)
                => load(mergeObj(Merged, Obj4))
                ~> checkMerge(Merged, Obj4)
 
-     rule <k> load(Merged:Bag)
+     rule <k> load(Merged:K)
                => loadObj(mergeObj(Merged, <global> ThisObj </global>))
                ~> checkMerge(Merged, <global> ThisObj </global>)
           ...</k>
@@ -180,7 +180,7 @@ module C-TRANSLATION-INIT
                "6.9"))
           ~> checkExtDefs(X:CId, _, SetItem(X) _)
 
-     syntax Bag ::= mergeObj(Bag, Bag) [function]
+     syntax Bag ::= mergeObj(K, K) [function]
      syntax Map ::= mergeDecls(Map, Map) [function]
                   | mergeDecl(K, K, K, Map) [function]
 
@@ -195,8 +195,8 @@ module C-TRANSLATION-INIT
      rule mergeDecl(Key:K, set(S:Set), set(S':Set), M:Map)
           => (Key |-> set(S S')) M
 
-     rule mergeObj(B:Bag, .Bag) => B
-     rule mergeObj(.Bag, B:Bag) => B
+     rule mergeObj(B:K, .K) => B
+     rule mergeObj(.K, B:K) => B
      rule mergeObj(
           (<global>
                <mem> M1:Map </mem>

@@ -361,7 +361,7 @@ module C-TYPING-MISC
      rule getFieldInfo(t(_, structType(S:StructId))) => getFieldInfo(S)
      rule getFieldInfo(t(_, unionType(S:StructId))) => getFieldInfo(S)
      syntax FieldInfo ::= #getFieldInfo(StructId, K) [function]
-     rule #getFieldInfo(S:StructId, <generatedTop>... <global>... <structs>... S |-> F:FieldInfo ...</structs> ...</global> ...</generatedTop> _:Bag)
+     rule #getFieldInfo(S:StructId, <generatedTop>... <global>... <structs>... S |-> F:FieldInfo ...</structs> ...</global> ...</generatedTop>)
           => F
      rule #getFieldInfo(_, _) => #incomplete [owise]
 

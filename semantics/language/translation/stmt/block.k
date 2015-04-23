@@ -11,20 +11,16 @@ module C-STMT-BLOCK
           [structural]
 
      rule <k> pushBlock => .K ...</k>
-          <local>
-               C:Bag
-          </local>
+          C:LocalCell
           <block-stack>
-               .List => ListItem(bag2K(C))
+               .List => ListItem(C)
           ...</block-stack>
           [structural]
 
      rule <k> popBlock => .K ...</k>
-          <local>
-               (_:Bag => C)
-          </local>
+          (_:LocalCell => C)
           <block-stack>
-               ListItem(bag2K(C:Bag)) => .List
+               ListItem(C:LocalCell) => .List
           ...</block-stack>
           [structural]
 
