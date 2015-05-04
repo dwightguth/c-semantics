@@ -255,10 +255,16 @@ module C-TYPING-EXPR
           requires isArithUnaryOp(#klabel(L))
           [structural]
 
-     rule <type> L:KLabel(T:FloatType,, _:KList) => T ...</type>
+     rule <type> L:KLabel(T:FloatType,, _:K) => T ...</type>
           requires (#klabel(L) in typeStrictLeftBinaryOperators)
           [structural]
-     rule <type> L:KLabel(T:IntegerType,, _:KList) => promote(T) ...</type>
+     rule <type> L:KLabel(T:IntegerType,, _:K) => promote(T) ...</type>
+          requires (#klabel(L) in typeStrictLeftBinaryOperators)
+          [structural]
+     rule <type> L:KLabel(T:FloatType) => T ...</type>
+          requires (#klabel(L) in typeStrictLeftBinaryOperators)
+          [structural]
+     rule <type> L:KLabel(T:IntegerType) => promote(T) ...</type>
           requires (#klabel(L) in typeStrictLeftBinaryOperators)
           [structural]
 

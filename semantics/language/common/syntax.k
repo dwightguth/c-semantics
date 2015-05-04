@@ -1,9 +1,10 @@
 module C-SYNTAX
      imports BASIC-K
-     imports STRING-SYNTAX
-     imports INT-SYNTAX
-     imports BOOL-SYNTAX
+     imports STRING
+     imports INT
+     imports BOOL
      imports LIST
+     imports FLOAT
 
      syntax KBott ::= "(" K ")" [bracket]
 

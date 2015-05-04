@@ -3,7 +3,6 @@ module C-ERROR-SYNTAX
      imports STRING-SYNTAX
      // Deprecated...
      syntax KItem ::= ERROR(String, String)
-     syntax KItem ::= ERROR(String, String, KList)
      syntax KItem ::= ERROR(String, String, String, String)
 
      // Error code, desc., C11 citation.
@@ -70,8 +69,6 @@ module C-ERROR
      syntax ErrorRef ::= Int
 
      rule ERROR(Title:String, Msg:String)
-          => EXITFunc(ErrorMsg(Title, Msg, "", ""))
-     rule ERROR(Title:String, Msg:String, _:KList)
           => EXITFunc(ErrorMsg(Title, Msg, "", ""))
 
      rule UNDEF(Title:String, Msg:String, Citation:String)

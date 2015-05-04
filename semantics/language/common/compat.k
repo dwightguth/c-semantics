@@ -1,7 +1,6 @@
 module COMPAT-SYNTAX
      imports C-SYNTAX // Would like to get rid of this.
      imports MAP
-     imports KCELLS
      imports INT
      imports FLOAT
      imports K-EQUAL
@@ -37,7 +36,6 @@ module COMPAT-SYNTAX
      syntax List ::= reverseList(List) [function]
 
      //TODO(liyi): syntax List ::= ListItem(Bag)
-     syntax KItem ::= bag2K(Bag)
      syntax KItem ::= list(List)
      syntax KItem ::= map(Map)
      syntax KItem ::= set(Set)
