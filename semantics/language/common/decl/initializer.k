@@ -165,7 +165,7 @@ module C-DECL-INITIALIZER
      // Special array designator syntax so that it doesn't get caught by the
      // X[Y] => *(X + Y) macro.
      syntax KItem ::= K "[[" Int "]]"
-     rule K:K [[ N:Int ]] => K[N]
+     rule K:K [[ N:Int ]] => K[N]<:Expression
 
      syntax KItem ::= "getInit"
      syntax KItem ::= fillInit(K)

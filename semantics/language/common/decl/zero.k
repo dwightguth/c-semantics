@@ -42,7 +42,7 @@ module C-DECL-ZERO
           [structural]
 
      rule zeroType(X:K, t(S:Set, arrayType(T:Type, Len:Int)))
-          => zeroType(X[Len -Int 1], T)
+          => zeroType(X[Len -Int 1]<:Expression, T)
                ~> zeroType(X, t(S:Set, arrayType(T, Len -Int 1)))
           requires Len >Int 0
           [structural]

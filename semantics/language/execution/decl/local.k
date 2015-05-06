@@ -10,7 +10,7 @@ module C-DECL-LOCAL
      imports C-SEQUENCE-POINT-SYNTAX
 
      imports C-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      rule declare'(typedDeclaration(T:Type, X:CId), K:K)

@@ -1,6 +1,6 @@
 module C-NATIVE-BRIDGE
   imports LIBC-BOOTSTRAP-SYNTAX
-
+  imports MAP
   imports C-SYNTAX
   imports C-BUILTIN-SYNTAX
 

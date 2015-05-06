@@ -1,4 +1,6 @@
 module LIBC-IO-SYNTAX
+     imports INT
+     imports STRING
      syntax KItem ::= writeToFD(Int, Int)
      syntax KItem ::= writeToFD(Int, String)
      syntax KItem ::= readFromFD(Int)
@@ -11,10 +13,11 @@ endmodule
 
 module LIBC-IO
      imports LIBC-IO-SYNTAX
-
+     imports C-CONFIGURATION
      imports C-DYNAMIC-SYNTAX
      imports C-TYPING-SYNTAX
      imports COMPAT-SYNTAX
+     imports K-IO
 
      // fixme these should be computational, unless I handle that at a higher
      // level

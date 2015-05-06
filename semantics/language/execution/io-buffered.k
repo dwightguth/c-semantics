@@ -26,7 +26,7 @@ module C-IO-BUFFERED
      imports C-SYNTAX
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      syntax KItem ::= bwrite(SymLoc, K)
@@ -58,7 +58,7 @@ module C-IO-BUFFERED
 
      syntax KItem ::= updateModified(K, SymLoc, CSize) [function]
      rule updateModified(activity(N:Int, M:Map), Loc:SymLoc, I:Int)
-          => activity(N, M[Loc <- maxInt(lookup(M, Loc), I)])
+          => activity(N, M[Loc <- maxInt(lookup(M, Loc):>Int, I)])
           requires Loc in keys(M)
      rule updateModified(activity(N:Int, M:Map), Loc:SymLoc, I:Int)
           => activity(N, M (Loc |-> I))
@@ -171,7 +171,7 @@ module C-IO-BUFFERED
      syntax KItem ::= updateObject(K, Int, K) [function]
      syntax Bool ::= objectInBounds(K, Int) [function]
 
-     rule updateObject(object(T:K, Len:Int, Bytes:Map, Types:Map), Offset:Int, V:K)
+     rule updateObject(object(T:Type, Len:Int, Bytes:Map, Types:Map), Offset:Int, V:K)
           => object(T, Len, Bytes[Offset <- V], Types)
      rule objectInBounds(object(_, Len:Int, _, _), Offset:Int)
           => Offset <Int Len
@@ -218,7 +218,7 @@ module C-IO-BUFFERED
           [structural]
 
      syntax List ::= bvalues(List) [function]
-     rule bvalues(ListItem(tv(K:K, _)) L:List) => ListItem(K) bvalues(L)
+     rule bvalues(ListItem(tv(K:CValue, _)) L:List) => ListItem(K) bvalues(L)
      rule bvalues(.List) => .List
 
      syntax Error ::= "errorReadOutOfBounds"
@@ -273,7 +273,7 @@ module C-IO-BUFFERED
           ...</mem>
           <buffer> Mem:List </buffer>
           requires (notBool (loc(Base, Offset) in locations(Mem)))
-               andBool (notBool (Offset in (keys(M))))
+               andBool (notBool (Offset in keys(M)))
                andBool (notBool isStaticDuration(loc(Base, Offset)))
           [structural]
      rule <k> readByte(loc(Base:SymBase, Offset:Int), T:Type)
@@ -290,7 +290,7 @@ module C-IO-BUFFERED
           ...</mem>
           <buffer> Mem:List </buffer>
           requires (notBool (loc(Base, Offset) in locations(Mem)))
-               andBool (notBool (Offset in (keys(M))))
+               andBool (notBool (Offset in keys(M)))
                andBool (isStaticDuration(loc(Base, Offset))
                     orBool isThreadDuration(loc(Base, Offset)))
           [structural]
@@ -358,7 +358,7 @@ module C-IO-BUFFERED
           <mem>...
                Old |-> object(_, _, M:Map, _)
                New |-> object(_, _,
-                    _:Map (.Map => (N' -Int 1) |-> (M [ N' -Int 1])<:K),
+                    _:Map (.Map => (N' -Int 1) |-> (M:Map [ N' -Int 1])<:K),
                     _)
           ...</mem>
           requires ((N' -Int 1) in keys(M)) andBool (N' >Int 0)

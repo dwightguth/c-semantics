@@ -5,6 +5,7 @@ module C-STMT-BLOCK
      imports C-IO-BUFFERED-SYNTAX
      imports C-SEQUENCE-POINT-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      /*@ \fromStandard{\source[n1570]{\para{6.8.2}{2}}}{
      A \emph{compound statement} is a block.
@@ -21,16 +22,16 @@ module C-STMT-BLOCK
                <nesting-depth> N:Int => N:Int +Int 1 </nesting-depth>
           </local>
           <block-stack> .List
-               => ListItem(bag2K(C
+               => ListItem(<local> C
                <local-vars> Vars </local-vars>
                <local-addresses> Addresses </local-addresses>
-               <nesting-depth> N </nesting-depth>))
+               <nesting-depth> N </nesting-depth> </local>)
           ...</block-stack>
           [structural]
 
      rule <k> popBlock => .K ...</k>
-          <local> _ => C </local>
-          <block-stack> ListItem(bag2K(C:Bag)) => .List ...</block-stack>
+          (_:LocalCell => C)
+          <block-stack> ListItem(C:LocalCell) => .List ...</block-stack>
           [structural]
 
      rule <k> (.K => deleteObject(Base)) ~> deleteLocals ...</k>

@@ -5,6 +5,7 @@ module LIBC-SETJMP
      imports C-DYNAMIC-SYNTAX
      imports C-TYPING-SYNTAX
      imports C-IO-BUFFERED-SYNTAX
+     imports C-CONFIGURATION
 
      /*@
      \fromStandard{\source[n1570]{\para{7.13}{1--3}}}{
@@ -98,14 +99,14 @@ module LIBC-SETJMP
                     ~> writeByte(Loc, bag(
                          <thread-state>
                               <thread-continuation> K:K </thread-continuation>
-                              <saved-thread-local>C:Bag</saved-thread-local>
+                              <saved-thread-local>C</saved-thread-local>
                          </thread-state>
                     ))
                     ~> tv(0, t(.Set, int))
                )
                ~> K:K
           </k>
-          <thread-local> C:Bag </thread-local>
+          C:ThreadLocalCell
           [structural]
 
      syntax KItem ::= "longjmp-aux" "(" K "," K ")" [strict(2)]
@@ -124,7 +125,7 @@ module LIBC-SETJMP
                longjmp-aux(tv(agg(ListItem(bag(
                     <thread-state>
                          <thread-continuation> K:K </thread-continuation>
-                         <saved-thread-local>C:Bag</saved-thread-local>
+                         <saved-thread-local>C:ThreadLocalCell</saved-thread-local>
                     </thread-state>
                ))), t(_, structType(global(Identifier("__jmp_buf_tag"), "builtin")))),
                     tv(I:Int, t(_, int))) ~> _
@@ -134,6 +135,6 @@ module LIBC-SETJMP
                          #else tv(I:Int, t(.Set, int)) #fi
                     ~> K:K
           </k>
-          <thread-local> _ => C:Bag </thread-local>
+          (_:ThreadLocalCell => C)
           [structural]
 endmodule

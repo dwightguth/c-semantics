@@ -17,7 +17,7 @@ module LIBC-STDIO
      imports C-MEMORY-READING-SYNTAX
      imports C-MEMORY-ALLOC-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      // fixme might be messing things up elsewhere
@@ -92,7 +92,7 @@ module LIBC-STDIO
           nextvarg-aux(Loc:SymLoc, T:Type, Len:RValue, Len':RValue)
           => vpair(read(Loc, T),
                vargResult(tv(loc(linc(base(Loc)), offset(Loc)), t(.Set, pointerType(t(.Set, void))))))
-          requires value(Len) ==Int value(Len')
+          requires value(Len):>Int ==Int value(Len'):>Int
           [structural]
 
      rule [fslPutc]:
@@ -218,10 +218,10 @@ module LIBC-STDIO
      rule formatter-next(vargResult(tv(Loc:SymLoc, _)))
           => formatter-arg(nextvarg(Loc, getFormatType))
           [structural]
-     rule <k> formatter-arg(vpairResult(tv(K:K, _), V':KResult))
+     rule <k> formatter-arg(vpairResult(tv(K:CValue, _), V':KResult))
                => formatter-aux(V':KResult)
           ...</k>
-          <format-arg> _ => K:K </format-arg>
+          <format-arg> _ => K:CValue </format-arg>
           [structural]
 
      rule [format-start]:

@@ -19,7 +19,7 @@ module LIBC-BOOTSTRAP
      imports C-SETTINGS-SYNTAX
      imports C-SYMLOC-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      //TODO(liyili): might not need this if we have hybrid label
@@ -59,5 +59,5 @@ module LIBC-BOOTSTRAP
           requires vararg(0) in L
      rule makeVarArgs(L:List ListItem(X:CId))
           => L ListItem(X) ListItem(varg(incSymbolic(&(X))))
-          requires notBool vararg(0) in (L ListItem(X))
+          requires notBool vararg(0) in (L ListItem(X)):>List
 endmodule

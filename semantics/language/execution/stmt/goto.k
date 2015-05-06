@@ -3,6 +3,7 @@ module C-STMT-GOTO
      imports C-DYNAMIC-SYNTAX
      imports C-ENV-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      syntax KItem ::= getIdOfDeclaration(K) [function]
      syntax KItem ::= getIdOfName(K) [function]
@@ -125,8 +126,8 @@ module C-STMT-GOTO
                ListItem(CurrentBlock:Int) BlockHistory':List
           </block-history>
           <loop-stack> _ => LoopStack </loop-stack>
-          requires ((L ==K #klabel(`'processGoto`))
-               orBool (L ==K #klabel(`'processGotoDown`)))
+          requires ((#klabel(L) ==K #klabel(`'processGoto`))
+               orBool (#klabel(L) ==K #klabel(`'processGotoDown`)))
                andBool (listEqual(BlockHistory, BlockHistory'))
           [structural]
 
@@ -201,9 +202,9 @@ module C-STMT-GOTO
 
      rule <k> (.K => pushBlock
                ~> addToHistory(getLastOfList(
-                        getSubListBack(ActualHist, BlockNums)))
+                        getSubListBack(ActualHist, BlockNums)):>Int)
                ~> addVariablesForBlock(getLastOfList(
-                        getSubListBack(ActualHist, BlockNums)), DeclStk)
+                        getSubListBack(ActualHist, BlockNums)):>Int, DeclStk)
                ) ~> processGotoDown(gotoObject(TargetDepth:Int,
                     BlockNums:List, _, _,
                     DeclStk:List))
@@ -230,8 +231,8 @@ module C-STMT-GOTO
           <nesting-depth> Depth:Int </nesting-depth>
           <block-history> BlockHistory:List </block-history>
           <loop-stack> _ => LoopStack </loop-stack>
-          requires ((L ==K #klabel(`'processGoto`))
-               orBool (L ==K #klabel(`'processGotoDown`)))
+          requires ((#klabel(L) ==K #klabel(`'processGoto`))
+               orBool (#klabel(L) ==K #klabel(`'processGotoDown`)))
                andBool (SIntDepth ==Int Depth +Int 1)
           [structural]
 
@@ -271,7 +272,7 @@ module C-STMT-GOTO
                )
                ~> addVariablesForBlock(TargetBlock:Int,
                     ((ListItem(frozenDeclaration(
-                         _:Int, TargetBlock:Int, Decl:K)) => .List) _)
+                         _:Int, TargetBlock:Int, Decl:K)) => .List) _:List)
                )
           ...</k>
           <local-vars> Vars:List </local-vars>

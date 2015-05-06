@@ -6,6 +6,7 @@ module C-STMT-SWITCH
      imports C-TYPING-SYNTAX
      imports C-SEQUENCE-POINT-SYNTAX
      imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      // switch num, promoted value of controlling exp, int value of exp
      syntax KItem ::= handleSwitch(Int, K) [strict(2)]
@@ -30,13 +31,13 @@ module C-STMT-SWITCH
      \cinline{default} label, no part of the switch body is executed.
      }*/
 
-     rule Switch(SN:Int, tv(V:K, T:IntegerType), _)
+     rule Switch(SN:Int, tv(V:CValue, T:IntegerType), _)
           => sequencePoint
                ~> handleSwitch(SN, cast(promote(T), tv(V, T)))
           [structural]
 
-     rule <k> handleSwitch(SN:Int, V:KResult)
-               => #handleSwitch-aux(SN, V,.K, .K, M)
+     rule <k> handleSwitch(SN:Int, V:RValue)
+               => #handleSwitch-aux(SN, V, .K, .K, M)
           ...</k>
           <curr-function> F:CId </curr-function>
           <curr-tu> Tu:String </curr-tu>
@@ -83,11 +84,11 @@ module C-STMT-SWITCH
           [structural]
 
      rule tryCase(
-               (tv(V:K, T':Type) => stripConstants(cast(T, tv(V, T')))),
+               (tv(V:CValue, T':Type) => stripConstants(cast(T, tv(V, T')))),
                tv(_, T:Type), _)
           requires T =/=Type T'
           [structural]
-     rule tryCase(tv(V':K, T':Type), tv(V:K, T:Type), _) => .K
+     rule tryCase(tv(V':CValue, T':Type), tv(V:CValue, T:Type), _) => .K
           requires (V =/=K V') andBool (T ==Type T')
           [structural]
      //  match found in value and type, goto it

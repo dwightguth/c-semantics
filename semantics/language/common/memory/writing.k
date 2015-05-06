@@ -286,8 +286,8 @@ module C-MEMORY-WRITING
      syntax Bool ::= isNonPaddingOffset(Int, List, Map, Map) [function]
      rule isNonPaddingOffset(Offset:Int, ListItem(typedDeclaration(_, F:CId)) 
           Decls:List, Types:Map, Offsets:Map)
-          => (Offsets[F]:>Int <=Int Offset andBool Offset <Int Offsets[F]:>Int +Int
-               byteSizeofType(Types[F]:>Type):>Int)
+          => (Offsets[F]::K:>Int <=Int Offset andBool Offset <Int Offsets[F]::K:>Int +Int
+               byteSizeofType(Types:Map[F]:>Type):>Int)
           orBool isNonPaddingOffset(Offset, Decls, Types, Offsets)
      rule isNonPaddingOffset(_, .List, _, _) => false
 

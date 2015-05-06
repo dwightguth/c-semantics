@@ -10,7 +10,7 @@ module C-COMPOUND-LITERAL
      imports C-SYMLOC-SYNTAX
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      syntax CId ::= compoundLiteral(Int)
@@ -81,7 +81,7 @@ module C-COMPOUND-LITERAL
      // gotos. An instance (i.e., syntactic occurance) of a compound literal
      // apparently must always refer to the same object, even if it is
      // encountered multiple times (e.g., when in the body of a loop).
-     rule <k> handleCompoundLiteral(initValue(X:CId, T:KResult, Init:K))
+     rule <k> handleCompoundLiteral(initValue(X:CId, T:Type, Init:K))
                => addToEnv(X, Base)
                ~> giveType(X, T)
                ~> allowInit(Init)

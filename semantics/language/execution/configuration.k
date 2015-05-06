@@ -42,7 +42,7 @@ module C-CONFIGURATION
      </translation-units>
 </global>
 <T>
-<exec>
+<exec multiplicity="?">
      // SymLoc |-> Type
      <effective-types> .Map </effective-types>
 
@@ -184,15 +184,16 @@ module C-CONFIGURATION
      // TODO(chathhorn): not sure where to put these.
      <call-stack-frame multiplicity="*">
           <continuation> .K </continuation>
+          <stack-curr-tu> "" </stack-curr-tu>
           <stack-curr-function> .K </stack-curr-function>
           <stack-curr-function-params> .List </stack-curr-function-params>
           <stack-curr-program-loc> .K </stack-curr-program-loc>
-          <stack-control> .Bag </stack-control>
+          <stack-control> .K </stack-control>
      </call-stack-frame>
 
      <thread-state multiplicity="*">
           <thread-continuation> .K </thread-continuation>
-          <saved-thread-local> .Bag </saved-thread-local>
+          <saved-thread-local> .K </saved-thread-local>
      </thread-state>
 
 </exec>

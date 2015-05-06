@@ -98,8 +98,8 @@ module C-EXPR-ASSIGNMENT
 
      rule checkArrayStaticAssign(t(Mods:Set, pointerType(T:Type)), loc(_, _, Prov:Set))
           => checkArrayStaticAssign'(T,
-               getFirstMatch(Mods, 'arrayStatic),
-               getFirstMatch(Prov, 'fromArray))
+               getFirstMatch(Mods, #klabel(`arrayStatic`)):>Modifier,
+               getFirstMatch(Prov, #klabel(`fromArray`)):>Provenance)
      rule (.K => UNDEF("EEA4",
                "passing a pointer not to an array object as a function parameter with a static-qualified array size.",
                "6.7.6.3:7"))

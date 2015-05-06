@@ -13,7 +13,7 @@ module C-CHECK-LOC
      imports C-ERROR-SYNTAX
      imports C-MEMORY-ALLOC-SYNTAX
      imports C-SYMLOC-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      rule <k> enterRestrictScope(Tag:RestrictTag) => .K ...</k>
@@ -118,7 +118,7 @@ module C-CHECK-LOC
      // unmodified in the associated block.
      syntax KItem ::= checkRestrict(SymLoc, Set, Set)
      rule checkRestrict(Loc:SymLoc, Bases:Set, Bases':Set)
-          => checkRestrict(
+          => #checkRestrict(
                filterUnmodified(Loc, .K, Bases, .Set),
                filterUnmodified(Loc, .K, Bases', .Set))
           [structural]
@@ -148,8 +148,8 @@ module C-CHECK-LOC
      rule filterUnmodified(_, .K, .Set, Bases:Set) => rset(Bases)
           [structural]
 
-     syntax KItem ::= checkRestrict(K, K) [strict]
-     rule checkRestrict(rset(Bases:Set), rset(Bases':Set))
+     syntax KItem ::= #checkRestrict(K, K) [strict]
+     rule #checkRestrict(rset(Bases:Set), rset(Bases':Set))
           => checkRestrict(Bases Bases', Bases, Bases')
           [structural]
 

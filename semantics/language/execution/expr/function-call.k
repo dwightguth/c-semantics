@@ -12,7 +12,7 @@ module C-EXPR-FUNCTION-CALL
      imports C-SYNTAX
      imports C-TYPING-COMPATIBILITY-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      /*@ \fromStandard{\source[n1570]{\para{6.5.2.2}{3}}}{
@@ -115,10 +115,10 @@ module C-EXPR-FUNCTION-CALL
           <call-stack> .List => ListItem(
                bag2K(<call-stack-frame>...
                     <stack-control>
-                         <curr-tu> OldTu:String </curr-tu>
                          C:Bag
                     </stack-control>
                     <continuation> K:K </continuation>
+                    <stack-curr-tu> OldTu:String </stack-curr-tu>
                     <stack-curr-function> CurrFun:K </stack-curr-function>
                     <stack-curr-function-params> CurrFunParams:List </stack-curr-function-params>
                     <stack-curr-program-loc> CurrLoc:K </stack-curr-program-loc>

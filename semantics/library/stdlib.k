@@ -12,6 +12,7 @@ module LIBC-STDLIB
      imports C-SYMLOC-SYNTAX
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
+     imports C-CONFIGURATION
 
      syntax KItem ::= printString(K)
 

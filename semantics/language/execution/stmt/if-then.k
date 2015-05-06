@@ -11,7 +11,7 @@ module C-STMT-IF-THEN
      imports C-TYPING-SYNTAX
      imports C-SEQUENCE-POINT-SYNTAX
 
-     rule isTruthValue(tv(V:K, t(_, T:SimpleType)))
+     rule isTruthValue(tv(V:CValue, t(_, T:SimpleType)))
           => T ==K int andBool (V ==K 0 orBool V ==K 1)
 
      /*@ \fromStandard{\source[n1570]{\para{6.8}{4}}}{

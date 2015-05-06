@@ -8,7 +8,7 @@ module C-STMT-RETURN
      imports C-SEQUENCE-POINT-SYNTAX
      imports C-SYNTAX
      imports C-TYPING-SYNTAX
-
+     imports C-CONFIGURATION
      imports COMPAT-SYNTAX
 
      /*@ \fromStandard{\source[n1570]{\para{6.8.6.4}{2}}}{
@@ -98,9 +98,9 @@ module C-STMT-RETURN
                     <call-stack-frame>...
                          <continuation> K:K </continuation>
                          <stack-control>
-                              <curr-tu> OldTU:String </curr-tu>
                               C:Bag
                          </stack-control>
+                         <stack-curr-tu> OldTU:String </stack-curr-tu>
                          <stack-curr-function>
                               OldFun:CId
                          </stack-curr-function>

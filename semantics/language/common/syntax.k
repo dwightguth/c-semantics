@@ -19,6 +19,8 @@ module C-SYNTAX
      syntax HeatList ::= toHeatList(List) [function]
      syntax List ::= hListToList(HeatList) [function]
 
+     syntax right '_hs::_
+
      syntax HeatResult ::= hrItem(K)
      syntax HeatItem ::= HeatResult
      syntax KResult ::= HeatResult
