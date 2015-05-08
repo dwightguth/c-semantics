@@ -64,8 +64,8 @@ module C-DYNAMIC-SYNTAX
           [latex(\terminal{gotoObj}\!({#1},{#2},{#3},{#4},{#5}\!))]
 
 
-     syntax KItem ::= loadObj(Bag)
-     syntax Bag ::= unwrapObj(Bag) [function]
+     syntax KItem ::= loadObj(K)
+     syntax K ::= unwrapObj(K) [function]
 
 endmodule
 
@@ -131,7 +131,7 @@ module C-DYNAMIC
           ...</generatedTop>)
           => G
 
-     rule unwrapObj(.Bag) => .Bag
+     rule unwrapObj(.K) => .K
 
      rule <k> loadObj(<global> G:Bag </global>) => .K ...</k>
           <global> (_:Bag => G) </global>

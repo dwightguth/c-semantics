@@ -34,7 +34,7 @@ module LIBC-SETJMP
      // reached that point normally or from a call to longjmp
      // fixme check bounds
      // fixme obviously need to rework configuration to make this easy
-     syntax CValue ::= bag(Bag)
+     syntax CValue ::= bag(K)
 
      syntax KItem ::= "ignoreLocals"
 

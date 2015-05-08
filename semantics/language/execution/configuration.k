@@ -72,7 +72,7 @@ module C-CONFIGURATION
                <buffer color="lightgray"> .List </buffer>
 
                <k color="green" multiplicity="?">
-                    loadObj(unwrapObj($PGM:Bag))
+                    loadObj(unwrapObj($PGM:K))
                     ~> initMainThread
                     ~> pgmArgs($ARGV:List)
                     ~> callMain($ARGC:Int, incomingArguments($ARGV:List))
