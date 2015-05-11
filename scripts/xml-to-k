@@ -28,7 +28,7 @@ my $ltl = "\n";
 # might want to return, say, "'$name"
 sub nameToLabel {
 	my ($name) = (@_);
-	return "`'$name`";
+	return "`$name`";
 }
 #########################################################
 my %escapeMap = (
