@@ -29,7 +29,7 @@ module C-CONFIGURATION
      <linkings> .Map </linkings>
 
      <translation-units>
-          <tu multiplicity="*">
+          <tu multiplicity="*" type="Set">
                <tu-id> "" </tu-id>
                <genv color="lightgray"> .Map </genv>
                <gtypes color="lightgray"> .Map </gtypes>
@@ -74,7 +74,7 @@ module C-CONFIGURATION
      </final-computation>
 
      <goto-map-calc color="cyan">
-          <goto-calc multiplicity="*" color="cyan">
+          <goto-calc multiplicity="*" color="cyan" type="Set">
                <computation color="cyan"> .K </computation>
                <computation-tail color="cyan">
                     .K
