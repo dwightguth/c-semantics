@@ -137,12 +137,12 @@ module C-TRANSLATION-INIT
      syntax K ::= #nativeConstant(String, Type) [function, hook(C-SEMANTICS:nativeConstant), impure]
      rule handleBuiltinConstant(Identifier(S:String), T:Type) => #nativeConstant(S, T) when S in keys(nativeDefinedBuiltins)
 
-     syntax KItem ::= checkMerge(Bag, Bag)
+     syntax KItem ::= checkMerge(K, K)
                     | checkExtTypes(K, Set, Map, Set, Map)
                     | checkExtDefs(K, Set, Set)
 
-     rule checkMerge(_, .Bag) => .K
-     rule checkMerge(.Bag, _) => .K
+     rule checkMerge(_, .K) => .K
+     rule checkMerge(.K, _) => .K
      rule checkMerge(
           (<global>...
                <external-types> Types:Map </external-types>

@@ -21,8 +21,9 @@ module C-COMMON-EXPR-EVAL
 
      imports C-CONFIGURATION
 
-     rule reval(K:K) => K ~> reval(HOLE) [heat]
-     rule K:K ~> reval(HOLE) => reval(K) [cool, ndlocal]
+     syntax KItem ::= "reval" "(" ")" [prefer]
+     rule reval(HOLE) => HOLE:KItem ~> reval() [heat]
+     rule HOLE:KItem ~> reval() => reval(HOLE) [cool, ndlocal]
 
      // If the lvalue designates an object of automatic storage duration that
      // could have been declared with the register storage class (never had its
