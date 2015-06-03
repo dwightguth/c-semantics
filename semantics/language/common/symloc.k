@@ -146,11 +146,11 @@ module C-SYMLOC
      rule isStringLoc(_) => false [owise]
 
      rule isLinkerLoc(_ @ link(_)) => true
-     rule isLinkerLoc(_:SymBase) => false [owise]
+     rule isLinkerLoc(_) => false [owise]
 
      rule isLinkerLoc(Loc:SymLoc) => true
           requires isLinkerLoc(base(Loc))
-     rule isLinkerLoc(_:SymLoc) => false [owise]
+     rule isLinkerLoc(_) => false [owise]
 
      rule isArgvLoc(loc(_ @ argv, _)) => true
      rule isArgvLoc(loc(_ @ argv, _, _)) => true

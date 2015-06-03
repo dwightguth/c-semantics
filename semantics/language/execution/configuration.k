@@ -22,7 +22,7 @@ module C-CONFIGURATION
      <linkings> .Map </linkings>
 
      <translation-units>
-          <tu multiplicity="*">
+          <tu multiplicity="*" type="Set">
                <tu-id> "" </tu-id>
                <genv color="lightgray"> .Map </genv>
                <gtypes color="lightgray"> .Map </gtypes>
@@ -67,7 +67,7 @@ module C-CONFIGURATION
           <glocks color="yellow"> .List </glocks>
      </thread-info>
      <threads color="yellow">
-          <thread multiplicity="*" color="yellow">
+          <thread multiplicity="*" color="yellow" type="Set">
                <thread-id color="yellow"> 0 </thread-id>
                <buffer color="lightgray"> .List </buffer>
 
@@ -182,7 +182,7 @@ module C-CONFIGURATION
      </threads>
 
      // TODO(chathhorn): not sure where to put these.
-     <call-stack-frame multiplicity="*">
+     <call-stack-frame multiplicity="?">
           <continuation> .K </continuation>
           <stack-curr-tu> "" </stack-curr-tu>
           <stack-curr-function> .K </stack-curr-function>
@@ -191,7 +191,7 @@ module C-CONFIGURATION
           <stack-control> .K </stack-control>
      </call-stack-frame>
 
-     <thread-state multiplicity="*">
+     <thread-state multiplicity="?">
           <thread-continuation> .K </thread-continuation>
           <saved-thread-local> .K </saved-thread-local>
      </thread-state>
@@ -200,7 +200,7 @@ module C-CONFIGURATION
 
 <files color="lightgray">
      <file-commands> .K </file-commands>
-     <file multiplicity="*">
+     <file multiplicity="*" type="Set">
           <fid> .K </fid>
           <uri> .K </uri>
           <pos> 0 </pos>

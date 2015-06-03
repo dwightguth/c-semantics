@@ -159,9 +159,9 @@ sub elementToK {
 		my $ident = "`'WStringLiteral`" . paren($str);
 		return ($inNextState, $ident);
 	} elsif ($label eq 'Variadic') {
-		return ($inNextState, "#token(\"Bool\", \"true\")");
+		return ($inNextState, "#token(\"true\", \"Bool\")");
 	} elsif ($label eq 'NotVariadic') {
-		return ($inNextState, "#token(\"Bool\", \"false\")");
+		return ($inNextState, "#token(\"false\", \"Bool\")");
 	} elsif ($label eq 'U'
             || $label eq 'L'
             || $label eq 'F'
@@ -233,11 +233,11 @@ sub getRawData {
 	$reader->read;
 	
 	if ($sort eq 'String') {
-		$data = '#token("String", "' . escapeString('"' . escapeString(decode_base64($reader->value)) . '"') . '")';
+		$data = '#token("' . escapeString('"' . escapeString(decode_base64($reader->value)) . '"') . '", "String")';
 	} elsif ($sort eq 'Int') {
-		$data = '#token("Int", "' . $reader->value . '")';
+		$data = '#token("' . $reader->value . '", "Int")';
 	}  elsif ($sort eq 'Float') {
-		$data = '#token("Float", "' . $reader->value . '")';
+		$data = '#token("' . $reader->value . '", "Float")';
 	} else {
 		return "unknown raw data";
 	}
@@ -284,7 +284,7 @@ sub escapeWString {
 		for my $cp (@charPartArray) {
 			$single = ($single << 8) + ord($cp);
 		}
-		push @str, "#token(\"Int\", \"$single\")";
+		push @str, "#token(\"$single\", \"Int\")";
 	}
         return assocList(@str);
 }

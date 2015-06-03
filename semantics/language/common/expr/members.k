@@ -113,7 +113,7 @@ module C-COMMON-EXPR-MEMBERS
      a qualified type, the result has the so-qualified version of the type of
      the designated member.}
      }*/
-     rule K:K -> F:CId => (* K) . F [macro, structural]
+     rule K::K -> F::CId => (* K) . F [macro, structural]
 
      /*@ \fromStandard{\source[n1570]{\para{6.5.2.1}{2--3}}}{
      A postfix expression followed by an expression in square brackets
@@ -137,7 +137,7 @@ module C-COMMON-EXPR-MEMBERS
      other than an lvalue. It follows from this that arrays are stored in
      row-major order (last subscript varies fastest).
      }*/
-     rule E1:K[E2:K] => *(E1 + E2)
+     rule E1::K[E2::K] => *(E1 + E2)
           [macro, structural]
 
 endmodule
