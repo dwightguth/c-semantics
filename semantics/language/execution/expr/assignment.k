@@ -90,7 +90,7 @@ module C-EXPR-ASSIGNMENT
 
      syntax Bool ::= fromArrayStatic(Type) [function]
      rule fromArrayStatic(t(SetItem(K:K) S:Set, T:SimpleType))
-          => (getKLabel(K) ==K #klabel(`'arrayStatic`)) orBool fromArrayStatic(t(S, T))
+          => (getKLabel(K) ==K #klabel(`arrayStatic`)) orBool fromArrayStatic(t(S, T))
      rule fromArrayStatic(_) => false [owise]
 
      syntax KItem ::= checkArrayStaticAssign(Type, CValue)

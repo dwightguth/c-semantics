@@ -43,7 +43,6 @@ module C-LITERAL
      // Included for symmetry.
      syntax IntConstant ::= decimalConstant(Int)
      rule DecimalConstant(N:Int) => decimalConstant(N)
-          [anywhere, structural]
      rule StringLiteral(S:String) => stringLiteral(S)
           [anywhere, structural]
      rule WStringLiteral(list(S:List)) => wstringLiteral(S)

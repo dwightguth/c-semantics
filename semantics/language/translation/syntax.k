@@ -101,9 +101,9 @@ module C-ABSTRACT-SYNTAX
      rule AssignRightShift(K1::K, K2::K) => K1::K >>= K2::K [macro, structural]
 
      syntax Expression ::= Dot(K, CId)
-     rule Dot(K::K, X:CId) => K::K . X:CId [macro, structural]
+     rule Dot(K::K, X::CId) => K::K . X::CId [macro, structural]
      syntax Expression ::= Arrow(K, CId)
-     rule Arrow(K::K, X:CId) => K::K -> X:CId [macro, structural]
+     rule Arrow(K::K, X::CId) => K::K -> X::CId [macro, structural]
 
      /*@ This macro defines an important identity from
      \source[n1570]{\para{6.5.3.2}{3}}. As a syntactic macro, it should run

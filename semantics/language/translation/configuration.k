@@ -16,7 +16,7 @@ module C-CONFIGURATION
      // CId |-> Loc
      <external-defs> .Map </external-defs>
 
-     <linking-state multiplicity="?">
+     <linking-state multiplicity="?" initial="">
           // CId |-> Set(TUs)
           <external-decls> .Map </external-decls>
           // CIds

@@ -14,36 +14,36 @@ module C-TYPING-EXPR
 
      syntax Set ::= "assignmentLabels" [function]
      rule assignmentLabels =>
-          SetItem(#klabel(`'_:=_`))
-          SetItem(#klabel(`'_*=_`))
-          SetItem(#klabel(`'_/=_`))
-          SetItem(#klabel(`'_%=_`))
-          SetItem(#klabel(`'_+=_`))
-          SetItem(#klabel(`'_-=_`))
-          SetItem(#klabel(`'_<<=_`))
-          SetItem(#klabel(`'_>>=_`))
-          SetItem(#klabel(`'_&=_`))
-          SetItem(#klabel(`'_^=_`))
-          SetItem(#klabel(`'_|=_`))
+          SetItem(#klabel(`_:=_`))
+          SetItem(#klabel(`_*=_`))
+          SetItem(#klabel(`_/=_`))
+          SetItem(#klabel(`_%=_`))
+          SetItem(#klabel(`_+=_`))
+          SetItem(#klabel(`_-=_`))
+          SetItem(#klabel(`_<<=_`))
+          SetItem(#klabel(`_>>=_`))
+          SetItem(#klabel(`_&=_`))
+          SetItem(#klabel(`_^=_`))
+          SetItem(#klabel(`_|=_`))
 
      syntax Set ::= "typeStrictLeftBinaryOperators" [function]
      rule typeStrictLeftBinaryOperators =>
-          SetItem(#klabel(`'_<<_`))
-          SetItem(#klabel(`'_>>_`))
-          SetItem(#klabel(`'_*=_`))
-          SetItem(#klabel(`'_/=_`))
-          SetItem(#klabel(`'_%=_`))
-          SetItem(#klabel(`'_+=_`))
-          SetItem(#klabel(`'_-=_`))
-          SetItem(#klabel(`'_<<=_`))
-          SetItem(#klabel(`'_>>=_`))
-          SetItem(#klabel(`'_&=_`))
-          SetItem(#klabel(`'_^=_`))
-          SetItem(#klabel(`'_|=_`))
-          SetItem(#klabel(`'_++`))
-          SetItem(#klabel(`'_--`))
-          SetItem(#klabel(`'--_`))
-          SetItem(#klabel(`'++_`))
+          SetItem(#klabel(`_<<_`))
+          SetItem(#klabel(`_>>_`))
+          SetItem(#klabel(`_*=_`))
+          SetItem(#klabel(`_/=_`))
+          SetItem(#klabel(`_%=_`))
+          SetItem(#klabel(`_+=_`))
+          SetItem(#klabel(`_-=_`))
+          SetItem(#klabel(`_<<=_`))
+          SetItem(#klabel(`_>>=_`))
+          SetItem(#klabel(`_&=_`))
+          SetItem(#klabel(`_^=_`))
+          SetItem(#klabel(`_|=_`))
+          SetItem(#klabel(`_++`))
+          SetItem(#klabel(`_--`))
+          SetItem(#klabel(`--_`))
+          SetItem(#klabel(`++_`))
 
      rule <k> typeof(K:K) => evalToType ~> typeof(MYHOLE) ...</k>
           (.Bag => <type> K:K </type>)
@@ -270,10 +270,10 @@ module C-TYPING-EXPR
 
      rule <type> L:KLabel(T:PointerType) => T ...</type>
           requires (
-                    (#klabel(L) ==K #klabel(`'_++`))
-                    orBool (#klabel(L:KLabel) ==K #klabel(`'_--`))
-                    orBool (#klabel(L:KLabel) ==K #klabel(`'--_`))
-                    orBool (#klabel(L:KLabel) ==K #klabel(`'++_`))
+                    (#klabel(L) ==K #klabel(`_++`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`_--`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`--_`))
+                    orBool (#klabel(L:KLabel) ==K #klabel(`++_`))
                )
           [structural]
 
@@ -281,10 +281,10 @@ module C-TYPING-EXPR
           [structural]
 
      rule <type> L:KLabel(_:K,, _:K) => t(.Set, int) ...</type>
-          requires (#klabel(L:KLabel) ==K #klabel(`'_==_`))
-               orBool (#klabel(L:KLabel) ==K #klabel(`'_!=_`))
-               orBool (#klabel(L:KLabel) ==K #klabel(`'_&&_`))
-               orBool (#klabel(L:KLabel) ==K #klabel(`'_||_`))
+          requires (#klabel(L:KLabel) ==K #klabel(`_==_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`_!=_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`_&&_`))
+               orBool (#klabel(L:KLabel) ==K #klabel(`_||_`))
           [structural]
 
      rule <type> & T:Type => t(.Set, pointerType(T)) ...</type>

@@ -130,13 +130,13 @@ module COMPAT
      rule subset(K:K, _, S2:Set) => false
           requires notBool (K in S2)
 
-     rule `'_==MSet_`(.List ,, .List) => true
-     rule `'_==MSet_`(.List ,, ListItem(_) _:List) => false
-     rule `'_==MSet_`(ListItem(_) _:List ,, .List) => false
-     rule `'_==MSet_`(ListItem(K:K) M:List ,, M':List)
-          => `'_==MSet_`(M:List ,, removeListItem(M', K))
+     rule `_==MSet_`(.List ,, .List) => true
+     rule `_==MSet_`(.List ,, ListItem(_) _:List) => false
+     rule `_==MSet_`(ListItem(_) _:List ,, .List) => false
+     rule `_==MSet_`(ListItem(K:K) M:List ,, M':List)
+          => `_==MSet_`(M:List ,, removeListItem(M', K))
           requires K:K in M':List
-     rule `'_==MSet_`(ListItem(K:K) _:List ,, M':List)
+     rule `_==MSet_`(ListItem(K:K) _:List ,, M':List)
           => false
           requires notBool (K:K in M':List)
 
@@ -168,7 +168,7 @@ module COMPAT
 
      rule toKRList'((srItem(V:KResult) ss:: S:SubKRList) => S)
           ~> krlist(_:List (.List => ListItem(V)))
-          requires getKLabel(V) =/=K #klabel(`'krlist`)
+          requires getKLabel(V) =/=K #klabel(`krlist`)
           [structural]
      // Somewhat contrived feature: nested lists are flattened.
      rule toKRList'((srItem(krlist(L:List)) ss:: S:SubKRList) => S)

@@ -109,7 +109,7 @@ module C-FUNCTION-DEF
 
      syntax Bool ::= areVoidOrComplete(List) [function]
      rule areVoidOrComplete(L:List) => true
-          requires all(L, #klabel(`'isVoidOrComplete`))
+          requires all(L, #klabel(`isVoidOrComplete`))
      rule areVoidOrComplete(_) => false [owise]
 
      syntax KItem ::= checkMainDef(Type)

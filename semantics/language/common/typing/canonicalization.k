@@ -32,7 +32,7 @@ module C-TYPING-CANONICALIZATION
      rule deleteUnuseType(ListItem(K:K) L:List)
           => ListItem(K) deleteUnuseType(L)
           requires K =/=K SpecTypedef
-               andBool getKLabel(K) =/=K #klabel(`'Attribute`)
+               andBool getKLabel(K) =/=K #klabel(`Attribute`)
 
      rule canonicalizeType(M:List)
           => canonicalizeType-aux(deleteUnuseType(M), .K, .List, .List, .List)
@@ -82,14 +82,14 @@ module C-TYPING-CANONICALIZATION
                orBool (T ==K Unsigned)
                orBool (T ==K Complex)
                orBool (T ==K Imaginary)
-               orBool (getKLabel(T) ==K #klabel(`'StructDef`))
-               orBool (getKLabel(T) ==K #klabel(`'UnionDef`))
-               orBool (getKLabel(T) ==K #klabel(`'EnumDef`))
-               orBool (getKLabel(T) ==K #klabel(`'StructRef`))
-               orBool (getKLabel(T) ==K #klabel(`'UnionRef`))
-               orBool (getKLabel(T) ==K #klabel(`'EnumRef`))
-               orBool (getKLabel(T) ==K #klabel(`'Named`))
-               orBool (getKLabel(T) ==K #klabel(`'Attribute`))
+               orBool (getKLabel(T) ==K #klabel(`StructDef`))
+               orBool (getKLabel(T) ==K #klabel(`UnionDef`))
+               orBool (getKLabel(T) ==K #klabel(`EnumDef`))
+               orBool (getKLabel(T) ==K #klabel(`StructRef`))
+               orBool (getKLabel(T) ==K #klabel(`UnionRef`))
+               orBool (getKLabel(T) ==K #klabel(`EnumRef`))
+               orBool (getKLabel(T) ==K #klabel(`Named`))
+               orBool (getKLabel(T) ==K #klabel(`Attribute`))
           [structural]
 
      rule canonicalizeType-aux(_:List (ListItem(T:K) => .List), _:K, _:List, _:List,
@@ -121,8 +121,8 @@ module C-TYPING-CANONICALIZATION
                orBool (Q ==K Static)
                orBool (Q ==K ThreadLocal)
                orBool (Q ==K Volatile)
-               orBool (getKLabel(Q) ==K #klabel(`'alignas`))
-               orBool (getKLabel(Q) ==K #klabel(`'atomic`))
+               orBool (getKLabel(Q) ==K #klabel(`alignas`))
+               orBool (getKLabel(Q) ==K #klabel(`atomic`))
           [structural]
 // TODO(chathhorn): merging; doesn't make sense to me.
 //     //change this because of anywhere rule
@@ -149,8 +149,8 @@ module C-TYPING-CANONICALIZATION
 //      => (K |-> canonicalizeArrayType(T)) canonicalizeArrayTypeInMap(M)
 //
 //      rule canonicalizeArrayType(T:Type) => T
-//      requires getKLabel(T) =/=K #klabel(`'t`)
-//          andBool getKLabel(T) =/=K #klabel(`'typedDeclaration`)
+//      requires getKLabel(T) =/=K #klabel(`t`)
+//          andBool getKLabel(T) =/=K #klabel(`typedDeclaration`)
 //      rule canonicalizeArrayType(typedDeclaration(T:Type, C:CId))
 //      => typedDeclaration(canonicalizeArrayType(T), C)
 //      rule canonicalizeArrayType(t(SetItem(Const) S:Set,

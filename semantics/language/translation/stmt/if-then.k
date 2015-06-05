@@ -12,6 +12,7 @@ module C-STMT-IF-THEN
 
      rule isTruthValue(tv(V:CValue, t(_, T:SimpleType)))
           => T ==K int andBool (V ==K 0 orBool V ==K 1 orBool V ==K symVal)
+     rule isTruthValue(_) => false [owise]
 
      rule IfThenElse((V:RValue => simplifyTruth(V)), _, _)
           requires notBool isTruthValue(V)

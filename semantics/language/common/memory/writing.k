@@ -90,14 +90,14 @@ module C-MEMORY-WRITING
 
      rule keepUnion(.Set) => .Set
      rule keepUnion(SetItem(K:K) S:Set) =>
-          #if (getKLabel(K) ==K #klabel(`'fromUnion`))
+          #if (getKLabel(K) ==K #klabel(`fromUnion`))
           #then (SetItem(K) keepUnion(S))
           #else keepUnion(S)
           #fi
 
      rule stripUnion(.Set) => .Set
      rule stripUnion(SetItem(K:K) S:Set) =>
-          #if (getKLabel(K) ==K #klabel(`'fromUnion`))
+          #if (getKLabel(K) ==K #klabel(`fromUnion`))
           #then stripUnion(S)
           #else (SetItem(K) stripUnion(S))
           #fi

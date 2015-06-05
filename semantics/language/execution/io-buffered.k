@@ -317,7 +317,7 @@ module C-IO-BUFFERED
           // TODO(chathhorn): perf, elided
 //        rule [read-byte-buffer]:
 //             <k> readByte(Loc:SymLoc)
-//                  => assert(notBool ListItem(Loc) in Locs:List, errorUnseqEffects)
+//                  => assert(notBool Loc in Locs:List, errorUnseqEffects)
 //                  ~> tv(V:K, t(.Set, no-type))
 //             ...</k>
 //             <locs-written> Locs:List </locs-written>

@@ -40,22 +40,22 @@ module C-PROMOTION
      syntax Set ::= "arithBinConversionOps" [function]
 
      rule arithBinOps
-          => arithBinConversionOps (SetItem(#klabel(`'_<<_`)) SetItem(#klabel(`'_>>_`)))
+          => arithBinConversionOps (SetItem(#klabel(`_<<_`)) SetItem(#klabel(`_>>_`)))
      rule arithBinConversionOps =>
-               SetItem(#klabel(`'_*_`))
-               SetItem(#klabel(`'_/_`))
-               SetItem(#klabel(`'_%_`))
-               SetItem(#klabel(`'_+_`))
-               SetItem(#klabel(`'_-_`))
-               SetItem(#klabel(`'_<_`))
-               SetItem(#klabel(`'_>_`))
-               SetItem(#klabel(`'_<=_`))
-               SetItem(#klabel(`'_>=_`))
-               SetItem(#klabel(`'_==_`))
-               SetItem(#klabel(`'_!=_`))
-               SetItem(#klabel(`'_&_`))
-               SetItem(#klabel(`'_|_`))
-               SetItem(#klabel(`'_^_`))
+               SetItem(#klabel(`_*_`))
+               SetItem(#klabel(`_/_`))
+               SetItem(#klabel(`_%_`))
+               SetItem(#klabel(`_+_`))
+               SetItem(#klabel(`_-_`))
+               SetItem(#klabel(`_<_`))
+               SetItem(#klabel(`_>_`))
+               SetItem(#klabel(`_<=_`))
+               SetItem(#klabel(`_>=_`))
+               SetItem(#klabel(`_==_`))
+               SetItem(#klabel(`_!=_`))
+               SetItem(#klabel(`_&_`))
+               SetItem(#klabel(`_|_`))
+               SetItem(#klabel(`_^_`))
 
      rule isArithBinOp(Lbl:K)
           => #if (Lbl in arithBinOps) #then true #else false #fi
@@ -66,9 +66,9 @@ module C-PROMOTION
 
      syntax Set ::= "arithUnaryOps" [function]// [memo]
      rule arithUnaryOps =>
-          SetItem(#klabel(`'-_`))
-          SetItem(#klabel(`'+_`))
-          SetItem(#klabel(`'~_`))
+          SetItem(#klabel(`-_`))
+          SetItem(#klabel(`+_`))
+          SetItem(#klabel(`~_`))
 
      rule isArithUnaryOp(Lbl:K)
           => #if (Lbl in arithUnaryOps) #then true #else false #fi

@@ -197,14 +197,14 @@ module C-TYPING-MISC
           => stripStorageSpecifiers(stripFunctionSpecifiers(T))
 
      rule stripAlignas(t(Mods:Set, T:SimpleType))
-          => t(filterSet(Mods, #klabel(`'isNotAlignas`)), T)
+          => t(filterSet(Mods, #klabel(`isNotAlignas`)), T)
 
      syntax Bool ::= isNotAlignas(Modifier) [function]
      rule isNotAlignas(alignas(_)) => false
      rule isNotAlignas(_) => true [owise]
 
      rule stripReadFrom(t(Mods:Set, T:SimpleType))
-          => t(filterSet(Mods, #klabel(`'isNotReadFrom`)), T)
+          => t(filterSet(Mods, #klabel(`isNotReadFrom`)), T)
 
      syntax Bool ::= isNotReadFrom(Modifier) [function]
      rule isNotReadFrom(readFrom(_, _)) => false
@@ -323,7 +323,7 @@ module C-TYPING-MISC
      rule getRestrictBlock'(.K, SetItem(K:K) S:Set) => getRestrictBlock'(K, S)
      rule getRestrictBlock'(RestrictBlock(Tag:RestrictTag), _) => Tag
      rule getRestrictBlock'(K:K, S:Set) => getRestrictBlock'(.K, S)
-          requires getKLabel(K) =/=K #klabel(`'RestrictBlock`)
+          requires getKLabel(K) =/=K #klabel(`RestrictBlock`)
                andBool (K =/=K .K)
 
      rule getReadFrom(t(Mods:Set, _)) => getReadFrom'(.K, Mods)
@@ -332,7 +332,7 @@ module C-TYPING-MISC
      rule getReadFrom'(.K, SetItem(K:K) S:Set) => getReadFrom'(K, S)
      rule getReadFrom'(readFrom(Loc:SymLoc, Len:Int), _) => readFrom(Loc, Len)
      rule getReadFrom'(K:K, S:Set) => getReadFrom'(.K, S)
-          requires getKLabel(K) =/=K #klabel(`'readFrom`)
+          requires getKLabel(K) =/=K #klabel(`readFrom`)
                andBool (K =/=K .K)
      rule getReadFrom'(.K, .Set) => noModifier
 

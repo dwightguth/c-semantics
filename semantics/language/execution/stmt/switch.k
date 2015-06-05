@@ -63,14 +63,14 @@ module C-STMT-SWITCH
                CaseHelper:K, M:Map)
           => (tryCase(Exp, V, CaseHelper)
           ~> #handleSwitch-aux(SN, V, .K, .K, M))
-          requires Exp =/=K #klabel(`'Default`)
+          requires Exp =/=K #klabel(`Default`)
           [structural]
 
      //  if all that's left is a default, do it
-     rule #handleSwitch-aux(SN:Int, V:RValue, genLabel(SN:Int, #klabel(`'Default`)),
+     rule #handleSwitch-aux(SN:Int, V:RValue, genLabel(SN:Int, #klabel(`Default`)),
                _:K, M:Map)
           => (#handleSwitch-aux(SN, V, .K, .K, M)
-          ~> Goto(genLabel(SN, #klabel(`'Default`))))
+          ~> Goto(genLabel(SN, #klabel(`Default`))))
           [structural]
 
      rule #handleSwitch-aux(SN:Int, _, (genLabel(SN':Int, _:K) => .K),
@@ -80,7 +80,7 @@ module C-STMT-SWITCH
 
      rule #handleSwitch-aux(_:Int, _:RValue, (K:K => .K),
                (_ => .K), _)
-          requires getKLabel(K) =/=K #klabel(`'genLabel`)
+          requires getKLabel(K) =/=K #klabel(`genLabel`)
           [structural]
 
      rule tryCase(

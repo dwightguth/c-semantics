@@ -168,18 +168,15 @@ module C-TYPING-INTERPRETATION
      rule applyTypeFunction(makeArrayType(N:CSize, Specifier(list(ListItem(Static)))), T:Type)
           => t(getSpecifiers(T) SetItem(arrayStatic(N)),
                arrayType(stripSpecifiers(T), N))
-          [structural, anywhere]
      // TODO(chathhorn): Other qualifiers?
      rule applyTypeFunction(makeArrayType(N:K, Specifier(list(.List))), T:Type)
           => t(getSpecifiers(T), arrayType(stripSpecifiers(T), N))
           requires isInt(N) ==K true
-          [structural, anywhere]
      // TODO(chathhorn): better VLA support (need to keep around the
      // un-evaluated size expression).
      rule applyTypeFunction(makeArrayType(N:K, Specifier(list(.List))), T:Type)
           => t(getSpecifiers(T), variableLengthArrayType(stripSpecifiers(T), N))
           requires isInt(N) =/=K true
-          [structural, anywhere]
 
      syntax List ::= giveNamesToArgs(List) [function]
      syntax List ::= "giveNamesToArgs-aux" "(" Int "," List ")" [function]

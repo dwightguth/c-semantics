@@ -36,62 +36,62 @@ module C-TYPING-STRICTNESS
                | "typeStrictTernaryOpsThird" [function]
 
      rule typeStrictUnaryOps =>
-          SetItem(#klabel(`'-_`))
-          SetItem(#klabel(`'+_`))
-          SetItem(#klabel(`'!_`))
-          SetItem(#klabel(`'~_`))
-          SetItem(#klabel(`'*_`))
-          SetItem(#klabel(`'&_`))
-          SetItem(#klabel(`'++_`))
-          SetItem(#klabel(`'--_`))
-          SetItem(#klabel(`'_++`))
-          SetItem(#klabel(`'_--`))
+          SetItem(#klabel(`-_`))
+          SetItem(#klabel(`+_`))
+          SetItem(#klabel(`!_`))
+          SetItem(#klabel(`~_`))
+          SetItem(#klabel(`*_`))
+          SetItem(#klabel(`&_`))
+          SetItem(#klabel(`++_`))
+          SetItem(#klabel(`--_`))
+          SetItem(#klabel(`_++`))
+          SetItem(#klabel(`_--`))
 
      rule typeStrictBinaryOps =>
-          SetItem(#klabel(`'_*_`))
-          SetItem(#klabel(`'_/_`))
-          SetItem(#klabel(`'_%_`))
-          SetItem(#klabel(`'_+_`))
-          SetItem(#klabel(`'_-_`))
-          SetItem(#klabel(`'_<_`))
-          SetItem(#klabel(`'_<=_`))
-          SetItem(#klabel(`'_>_`))
-          SetItem(#klabel(`'_>=_`))
-          SetItem(#klabel(`'_==_`))
-          SetItem(#klabel(`'_!=_`))
-          SetItem(#klabel(`'_&_`))
-          SetItem(#klabel(`'_^_`))
-          SetItem(#klabel(`'_|_`))
-          SetItem(#klabel(`'_&&_`))
-          SetItem(#klabel(`'_||_`))
-          SetItem(#klabel(`'_[_]`))
+          SetItem(#klabel(`_*_`))
+          SetItem(#klabel(`_/_`))
+          SetItem(#klabel(`_%_`))
+          SetItem(#klabel(`_+_`))
+          SetItem(#klabel(`_-_`))
+          SetItem(#klabel(`_<_`))
+          SetItem(#klabel(`_<=_`))
+          SetItem(#klabel(`_>_`))
+          SetItem(#klabel(`_>=_`))
+          SetItem(#klabel(`_==_`))
+          SetItem(#klabel(`_!=_`))
+          SetItem(#klabel(`_&_`))
+          SetItem(#klabel(`_^_`))
+          SetItem(#klabel(`_|_`))
+          SetItem(#klabel(`_&&_`))
+          SetItem(#klabel(`_||_`))
+          SetItem(#klabel(`_[_]`))
 
      rule typeStrictBinaryOpsFirst =>
           typeStrictBinaryOps
-          SetItem(#klabel(`'_<<_`))
-          SetItem(#klabel(`'_>>_`))
-          SetItem(#klabel(`'_*=_`))
-          SetItem(#klabel(`'_/=_`))
-          SetItem(#klabel(`'_%=_`))
-          SetItem(#klabel(`'_+=_`))
-          SetItem(#klabel(`'_-=_`))
-          SetItem(#klabel(`'_<<=_`))
-          SetItem(#klabel(`'_&=_`))
-          SetItem(#klabel(`'_^=_`))
-          SetItem(#klabel(`'_|=_`))
-          SetItem(#klabel(`'_>>=_`))
-          SetItem(#klabel(`'_:=_`))
-          SetItem(#klabel(`'Call`))
-          SetItem(#klabel(`'_._`))
+          SetItem(#klabel(`_<<_`))
+          SetItem(#klabel(`_>>_`))
+          SetItem(#klabel(`_*=_`))
+          SetItem(#klabel(`_/=_`))
+          SetItem(#klabel(`_%=_`))
+          SetItem(#klabel(`_+=_`))
+          SetItem(#klabel(`_-=_`))
+          SetItem(#klabel(`_<<=_`))
+          SetItem(#klabel(`_&=_`))
+          SetItem(#klabel(`_^=_`))
+          SetItem(#klabel(`_|=_`))
+          SetItem(#klabel(`_>>=_`))
+          SetItem(#klabel(`_:=_`))
+          SetItem(#klabel(`Call`))
+          SetItem(#klabel(`_._`))
 
      rule typeStrictBinaryOpsSecond =>
           typeStrictBinaryOps
 
      rule typeStrictTernaryOpsSecond =>
-          SetItem(#klabel(`'_?_:_`))
+          SetItem(#klabel(`_?_:_`))
 
      rule typeStrictTernaryOpsThird =>
-          SetItem(#klabel(`'_?_:_`))
+          SetItem(#klabel(`_?_:_`))
 
      syntax KItem ::= "THOLE"
 
@@ -99,7 +99,7 @@ module C-TYPING-STRICTNESS
                Lbl:KLabel(K:K) => K ~> Lbl(THOLE)
           ...</type>
           requires (#klabel(Lbl) in typeStrictUnaryOps)
-               andBool (getKLabel(K) =/=K #klabel(`'t`))
+               andBool (getKLabel(K) =/=K #klabel(`t`))
                andBool (K =/=K THOLE)
           [structural]
      rule <type>
@@ -112,14 +112,14 @@ module C-TYPING-STRICTNESS
                Lbl:KLabel(K:K,, X:K) => K ~> Lbl(THOLE,, X)
           ...</type>
           requires (#klabel(Lbl) in typeStrictBinaryOpsFirst)
-               andBool (getKLabel(K) =/=K #klabel(`'t`))
+               andBool (getKLabel(K) =/=K #klabel(`t`))
                andBool (K =/=K THOLE)
           [structural]
      rule <type>
                Lbl:KLabel(X:K,, K:K) => K ~>  Lbl(X,, THOLE)
           ...</type>
           requires (#klabel(Lbl) in typeStrictBinaryOpsSecond)
-               andBool (getKLabel(K) =/=K #klabel(`'t`))
+               andBool (getKLabel(K) =/=K #klabel(`t`))
                andBool (K =/=K THOLE)
           [structural]
      rule <type>

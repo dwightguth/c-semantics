@@ -181,7 +181,7 @@ module C-BINDING
 
      // "are argument-promoted".
      rule areArgPromoted(L:List) => true
-          requires all(L, #klabel(`'isArgPromoted`))
+          requires all(L, #klabel(`isArgPromoted`))
      rule areArgPromoted(_) => false [owise]
 
      syntax Bool ::= isArgPromoted(Type) [function]
