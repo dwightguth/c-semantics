@@ -11,7 +11,7 @@ module C-PROCESS-LABEL
      imports C-TYPING-SYNTAX
      imports C-ABSTRACT-SYNTAX
 
-     imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      /*
      things I have to keep track of:
@@ -61,13 +61,13 @@ module C-PROCESS-LABEL
           <goto-map>... F |-> map(M:Map) ...</goto-map>
           requires M =/=K .Map
 
-     rule <computation> L:KLabel(_:KList) => .K ...</computation>
-          requires (L ==KLabel 'Nop)
-               orBool (L ==KLabel 'Computation)
-               orBool (L ==KLabel 'Break)
-               orBool (L ==KLabel 'Continue)
-               orBool (L ==KLabel 'Return)
-               orBool (L ==KLabel 'Goto)
+     rule <computation> K:KItem => .K ...</computation>
+          requires (getKLabel(K) ==K #klabel(`Nop`))
+               orBool (getKLabel(K) ==K #klabel(`Computation`))
+               orBool (getKLabel(K) ==K #klabel(`Break`))
+               orBool (getKLabel(K) ==K #klabel(`Continue`))
+               orBool (getKLabel(K) ==K #klabel(`Return`))
+               orBool (getKLabel(K) ==K #klabel(`Goto`))
 
      rule <computation> pushBlock => .K ...</computation>
           <goto-nesting-depth> N:Int => N +Int 1 </goto-nesting-depth>
@@ -267,11 +267,11 @@ module C-PROCESS-LABEL
           <tu-id> Tu </tu-id>
           <goto-map>...
                F:CId |-> map(
-                    (M:Map => M[caseLabel(SwitchNum, l('Default))
+                    (M:Map => M[caseLabel(SwitchNum, #klabel(`Default`))
                          <- gotoObject(Depth, BlockHistory,
                          (S ~> K ~> Tail), LoopStack, DeclStack)]))
           ...</goto-map>
-          requires notBool (caseLabel(SwitchNum, l('Default)) in keys(M))
+          requires notBool (caseLabel(SwitchNum, #klabel(`Default`)) in keys(M))
 
 endmodule
 

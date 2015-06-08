@@ -5,7 +5,7 @@ module C-STMT-BLOCK
      imports C-MEMORY-ALLOC-SYNTAX
      imports C-SYNTAX
 
-     imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      /*@ \fromStandard{\source[n1570]{\para{6.8.2}{2}}}{
      A \emph{compound statement} is a block.
@@ -14,16 +14,16 @@ module C-STMT-BLOCK
 
      rule <k> pushBlock => .K ...</k>
           <elab>... .K => pushBlock </elab>
-          <local> C:Bag </local>
+          C:LocalCell
           <block-stack>
-               .List => ListItem(bag2K(C))
+               .List => ListItem(C)
           ...</block-stack>
 
      rule <k> popBlock => .K ...</k>
           <elab>... .K => popBlock </elab>
-          <local> _:Bag => C </local>
+          (<local> _:Bag </local> => C)
           <block-stack>
-               ListItem(bag2K(C:Bag)) => .List
+               ListItem(C:LocalCell) => .List
           ...</block-stack>
 
      rule <k> Nop => .K ...</k>

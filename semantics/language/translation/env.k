@@ -19,7 +19,7 @@ module C-ENV
      imports C-BITSIZE-SYNTAX
      imports C-TYPING-SYNTAX
 
-     imports COMPAT-SYNTAX
+     imports C-CONFIGURATION
 
      rule <k> addToHistory(Tag:BlockTag) => .K ...</k>
           <block-history> .List => ListItem(Tag) ...</block-history>
