@@ -10,7 +10,6 @@ module C-TYPING-MISC
 
      imports C-CONFIGURATION
      imports COMPAT-SYNTAX
-     imports K-REFLECTION
 
      //TODO(chathhorn): a lot of junk dumped here.
 

@@ -254,6 +254,7 @@ module C-TYPING-COMPATIBILITY
      rule compositeType(T:BasicType, T:BasicType) => T
      rule compositeType(T:StructOrUnionType, T:StructOrUnionType) => T
      rule compositeType(T:BitfieldType, T:BitfieldType) => T
+     rule compositeType(variadic, variadic) => variadic
      rule compositeType(
                t(Mods:Set, T:SimpleType),
                t(Mods':Set, T:SimpleType))

@@ -31,6 +31,9 @@ module C-COMMON-EXPR-CONDITIONAL
      syntax TypeList ::= List{TypeItem, "ts::"} [seqstrict]
      syntax List ::= tListToList(TypeList) [function]
 
+     rule isKResult(.TypeList) => true
+     rule isKResult(T1 ts:: T2) => isKResult(T1) andBool isKResult(T2)
+
      rule tListToList(.TypeList) => .List
      rule tListToList(trItem(K:K) ts:: HL:TypeList)
           => ListItem(K) tListToList(HL)

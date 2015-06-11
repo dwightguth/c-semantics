@@ -25,6 +25,9 @@ module C-SYNTAX
      syntax HeatItem ::= HeatResult
      syntax KResult ::= HeatResult
 
+     rule isKResult(.HeatList) => true
+     rule isKResult(H1 hs:: H2) => isKResult(H1) andBool isKResult(H2)
+
      rule hItem(V:KResult) => hrItem(V)
 
      rule toHeatList(.List) => .HeatList

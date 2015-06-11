@@ -4,6 +4,7 @@ module COMPAT-SYNTAX
      imports INT
      imports FLOAT
      imports K-EQUAL
+     imports K-REFLECTION
 
      syntax String ::= firstChar(String) [function]
      syntax String ::= nthChar(String, Int) [function]
@@ -151,6 +152,10 @@ module COMPAT
      syntax SubKRItem ::= sItem(K) [strict]
      syntax SubKRList ::= List{SubKRItem, "ss::"} [strict]
      syntax SubKRList ::= toSubKRList(List) [function]
+
+
+     rule isKResult(.SubKRList) => true
+     rule isKResult(S1 ss:: S2) => isKResult(S1) andBool isKResult(S2)
 
      syntax SubResult ::= srItem(K)
      syntax SubKRItem ::= SubResult
