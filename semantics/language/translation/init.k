@@ -301,7 +301,7 @@ module C-TRANSLATION-INIT
 
      rule <k> L:CabsLoc => .K ...</k>
           <elab>... .K => L </elab>
-          <curr-program-loc> _ => L </curr-program-loc>
+          <curr-program-loc> _ => L </curr-program-loc> [owise]
 
      syntax CabsLoc ::= filterCabsLoc(CabsLoc) [function]
      rule filterCabsLoc(CabsLoc("cabs loc unknown", -10, -10, 0))

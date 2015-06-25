@@ -11,7 +11,7 @@ module C-PROMOTION
           )
           requires isIntegerType(type(V))
                andBool isArithUnaryOp(#klabel(L))
-               andBool notBool isPromoted(type(V))
+               andBool notBool isPromoted(type(V)) [owise]
      rule L:KLabel(
                (V:RValue => cast(promote(type(V)), V))
                ,, _
