@@ -35,11 +35,11 @@ compile: ${KCC_COMPILED_TESTS}
 
 %-link1.gcc: %-link1.c %-link2.c
 	@echo -n "Compiling $^ (reference)... "
-	@gcc-4.9 -std=c11 -o $@ $^ -lm > $@.tmp.out 2>&1; ${CHECK_RESULT_COMPILE}
+	@gcc -std=c11 -o $@ $^ -lm > $@.tmp.out 2>&1; ${CHECK_RESULT_COMPILE}
 
 %.gcc: %.c
 	@echo -n "Compiling $< (reference)... "
-	@gcc-4.9 -std=c11 -o $@ $< -lm > $@.tmp.out 2>&1; ${CHECK_RESULT_COMPILE}
+	@gcc -std=c11 -o $@ $< -lm > $@.tmp.out 2>&1; ${CHECK_RESULT_COMPILE}
 
 %.ref: %.gcc
 	@echo -n "Running $<... "
