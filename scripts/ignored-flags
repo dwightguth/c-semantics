@@ -8,3 +8,7 @@
 -W.*
 -f(no-)?omit-frame-pointer
 -g
+-rdynamic
+-rdynamic
+-rdynamic
+-rdynamic
